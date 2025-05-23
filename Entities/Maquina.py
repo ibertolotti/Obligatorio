@@ -1,3 +1,4 @@
+from requerimiento import Requerimiento
 class Maquina:
     codigo_maquina = 0
     def __init__(self, descripcion):
@@ -5,6 +6,9 @@ class Maquina:
 
         self.codigo = Maquina.codigo_maquina
         self.descripcion = descripcion
+        self.requerimientos=[]
     
-    def costo_produccion(self):
-        return 
+    def agregar_requerimiento(self, pieza, cantidad):
+        requerimiento = Requerimiento(self, pieza, cantidad)
+        self.requerimientos.append(requerimiento)
+
