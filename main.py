@@ -27,7 +27,7 @@ elif A == 2:
     print ("    6. Salir")
     print ("          ")
 
-    C = int(input("Seleccione una opción: "))
+    B = int(input("Seleccione una opción: "))
 
 elif A == 3:
     print ("          ")
