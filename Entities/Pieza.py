@@ -20,3 +20,11 @@ class Pieza:
     @property
     def costo_USD(self):
         return self.__costo_USD
+    
+    @property
+    def lote(self):
+        return self.__lote
+    
+    @property
+    def cantidad_stock(self):
+        return self.__cantidad_stock
