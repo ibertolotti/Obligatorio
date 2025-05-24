@@ -4,7 +4,7 @@ class Cliente(ABC):
     id=0
     def __init__(self, telefono, correo):
         Cliente.id += 1
-        self.__id = Cliente.ID
+        self.__id = Cliente.id
         self.__telefono = telefono
         self.__correo = correo
 

@@ -6,8 +6,8 @@ class Pedido:
     def __init__(self, cliente, maquina, estado):
         self.__cliente = cliente
         self.__maquina = maquina
-        # self.__fecha_realizado = datetime.now()
-        # self.__fecha_entregado = datetime.now()
+        self.__fecha_realizado = datetime.now()
+        # self.__fecha_entregado = 
         self.__estado = estado
 
     @property
