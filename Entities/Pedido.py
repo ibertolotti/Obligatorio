@@ -29,3 +29,6 @@ class Pedido:
     @property
     def estado(self):
         return self.__estado
+    
+    # def precio(self):
+    #     #primero hay que terminar el costo de produccion de maquina.
