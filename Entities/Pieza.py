@@ -47,6 +47,7 @@ class Pieza:
     def cambiar_cantidad_stock(self, stock_nuevo):
         self.__cantidad_stock=stock_nuevo
 
+#Capaz que aumentar stock tiene que estar en sistema:
     def aumentar_stock(self, cantidad_lotes):
         self.__cantidad_stock = self.__cantidad_stock + cantidad_lotes*self.lote
         return cantidad_lotes
