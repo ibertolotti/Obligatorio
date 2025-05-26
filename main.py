@@ -1,10 +1,6 @@
 from Entities.sistema import Sistema
-from Entities.clientes import Cliente, ClienteParticular, Empresa
-from Entities.pieza import Pieza
-from Entities.maquina import Maquina
-from Entities.pedido import Pedido
-from Entities.reposicion import Reposicion
-from Entities.requerimiento import Requerimiento
+
+# sistema = Sistema() #el de taler dijo que es necesario para poder llamar al sistema
 
 print ("1. Registrar")
 print ("2. Listar")
@@ -62,8 +58,16 @@ elif A == 1 and B == 2:
     lista_requisitos = []
 
     while requisito == "Si" or requisito == "si":
-        r = input("Ingrese el requisito")
-        lista_requisitos.append(r)
+        lista_piezas = []
+        for p in Sistema.lista_pieza:
+            lista_piezas.append(p)
+            print(p.codigo(), p.descripcion())
+
+        elijo_pieza = input("Elija una pieza como requisito de la maquina (ingrese el codigo): ")
+        for pieza in lista_piezas:
+            if elijo_pieza == pieza.codigo():
+                lista_requisitos.append(lista_piezas)
+                lista_piezas.remove(pieza)
 
         requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
 
