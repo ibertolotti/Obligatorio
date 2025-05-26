@@ -33,5 +33,3 @@ class Maquina:
     def agregar_requerimiento(self, pieza, cantidad):
         requerimiento = Requerimiento(self, pieza, cantidad)
         self.requerimientos.append(requerimiento)
-
-    
