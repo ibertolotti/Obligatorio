@@ -57,12 +57,13 @@ elif A == 1 and B == 2:
     requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
     lista_requisitos = []
 
-    while requisito == "Si" or requisito == "si":
-        lista_piezas = []
-        for p in Sistema.lista_pieza:
-            lista_piezas.append(p)
-            print(p.codigo(), p.descripcion())
+    lista_piezas = []
+    for p in Sistema.lista_pieza:
+        lista_piezas.append(p)
 
+    while requisito == "Si" or requisito == "si":
+        for p in Sistema.lista_pieza:
+            print(lista_piezas.codigo(), lista_piezas.descripcion())
         elijo_pieza = input("Elija una pieza como requisito de la maquina (ingrese el codigo): ")
         for pieza in lista_piezas:
             if elijo_pieza == pieza.codigo():
