@@ -51,8 +51,9 @@ if A == 1 and B == 1:
     descripcion = input("Ingrese la descripción de la pieza: ")
     costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
     lote = int(input("Ingrese el tamaño del lote: "))
+    cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
 
-    Sistema.registrar_pieza(descripcion, costo_USD, lote)
+    Sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
 
 elif A == 1 and B == 2:
 
