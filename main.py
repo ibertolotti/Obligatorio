@@ -67,7 +67,7 @@ elif A == 1 and B == 2:
         elijo_pieza = input("Elija una pieza como requisito de la maquina (ingrese el codigo): ")
         for pieza in lista_piezas:
             if elijo_pieza == pieza.codigo():
-                lista_requisitos.append(lista_piezas)
+                lista_requisitos.append(pieza)
                 lista_piezas.remove(pieza)
 
         requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
