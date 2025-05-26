@@ -13,8 +13,14 @@ class Maquina:
 
     # def costo_produccion(self):
     #     total = 0
-    #     for pieza,cantidad_requerida in self.requerimientos:
-    #         total = total + pieza.costo_USD * cantidad_requerida 
+    #     for requerimiento in self.requerimientos:
+    #         total = total + requerimiento.pieza.costo_USD() * requerimiento.cantidad_requerida 
+
+    #     #FUNCION AUXILIAR PARA BUSCAR EL COSTO A PARTIR DEL CODIGO DE LA PIEZA QUE PEDIMOS POR TERMINAL
+    #     for c in lista_pieza:
+    #     if codigo == c.codigo():
+    #         return c.costo_USD()
+
 
     # def disponibilidad(self):
     #     for requerimiento in self.requerimientos:
@@ -22,6 +28,9 @@ class Maquina:
     #             return False
     #     return true
 
+
     def agregar_requerimiento(self, pieza, cantidad):
         requerimiento = Requerimiento(self, pieza, cantidad)
         self.requerimientos.append(requerimiento)
+
+    
