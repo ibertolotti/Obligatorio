@@ -6,7 +6,6 @@ from pedido import Pedido
 from reposicion import Reposicion
 from requerimiento import Requerimiento
 
-
 class Sistema:
     def __init__(self):
         self.lista_pieza = []

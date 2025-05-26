@@ -1,3 +1,11 @@
+from Entities.sistema import Sistema
+from Entities.clientes import ClienteParticular, Empresa
+from Entities.pieza import Pieza
+from Entities.maquina import Maquina
+from Entities.pedido import Pedido
+from Entities.reposicion import Reposicion
+from Entities.requerimiento import Requerimiento
+
 print ("1. Registrar")
 print ("2. Listar")
 print ("3. Salir del sistema")
@@ -38,3 +46,18 @@ else:
     print("Esa opción no es válida")
     A = int(input("Seleccione otra opción: "))
 
+if A == 1 and B == 1:
+
+    descripcion = input("Ingrese la descripción de la pieza: ")
+    costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
+    lote = int(input("Ingrese el tamaño del lote: "))
+
+    Sistema.registrar_pieza(descripcion, costo_USD, lote)
+
+# elif A == 1 and B == 2:
+
+#     descripcion = input("Ingrese la descripción de la máquina: ")
+
+#     print("")
+
+# elif A == 1 and B == 3:
