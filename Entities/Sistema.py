@@ -1,5 +1,5 @@
 from datetime import datetime
-from clientes import ClienteParticular, Empresa
+from clientes import Cliente, ClienteParticular, Empresa
 from pieza import Pieza
 from maquina import Maquina
 from pedido import Pedido

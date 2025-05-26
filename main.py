@@ -1,5 +1,5 @@
 from Entities.sistema import Sistema
-from Entities.clientes import ClienteParticular, Empresa
+from Entities.clientes import Cliente, ClienteParticular, Empresa
 from Entities.pieza import Pieza
 from Entities.maquina import Maquina
 from Entities.pedido import Pedido
