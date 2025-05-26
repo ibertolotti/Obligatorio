@@ -22,9 +22,10 @@ class Maquina:
     #         return c.costo_USD()
 
 
+    #Disponibilididad tiene que ser booleano
     # def disponibilidad(self):
     #     for requerimiento in self.requerimientos:
-    #         if requerimiento.pieza.cantidad_stock < requerimiento.cantidad_requuerida:
+    #         if requerimiento.pieza.cantidad_stock < requerimiento.cantidad_requerida:
     #             return False
     #     return true
 

@@ -10,8 +10,7 @@ class Sistema:
     def __init__(self):
         self.lista_pieza = []
         self.lista_maquina = []
-        self.lista_cliente_particular = []
-        self.lista_empresa = []
+        self.lista_clientes = []
         self.lista_pedido = []
         self.lista_contabilidad=[]
 
@@ -30,12 +29,12 @@ class Sistema:
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
         cliente_particular=ClienteParticular(telefono, correo, cedula, nombre_completo)
-        self.lista_cliente_particular.append(cliente_particular)
+        self.lista_clientes.append(cliente_particular)
         return cliente_particular
     
     def registrar_empresa(self, telefono, correo, rut, nombre, web):
         cliente_empresa=Empresa(telefono, correo, rut, nombre, web)
-        self.lista_empresa.append(cliente_empresa)
+        self.lista_clientes.append(cliente_empresa)
         return cliente_empresa
     
     def registrar_pedido(self, cliente, maquina, estado):

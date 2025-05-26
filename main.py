@@ -54,10 +54,71 @@ if A == 1 and B == 1:
 
     Sistema.registrar_pieza(descripcion, costo_USD, lote)
 
-# elif A == 1 and B == 2:
+elif A == 1 and B == 2:
 
-#     descripcion = input("Ingrese la descripción de la máquina: ")
+    descripcion = input("Ingrese la descripción de la máquina: ")
+    requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
+    lista_requisitos = []
 
-#     print("")
+    while requisito == "Si" or requisito == "si":
+        r = input("Ingrese el requisito")
+        lista_requisitos.append(r)
 
-# elif A == 1 and B == 3:
+        requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
+
+    Sistema.registrar_maquina(descripcion, lista_requisitos)
+
+elif A == 1 and B == 3:
+
+    print ("1. Cliente Particular")
+    print ("2. Empresa")
+    print ("          ")
+
+    opcion = input("Seleccione una opción: ")
+
+    if opcion == 1:
+
+        telefono = int(input("Ingrese su teléfono: "))
+        correo = input("Ingrese su correo electrónico: ")
+        cedula = int(input("Ingrese su cédula: "))
+        nombre_completo = input("Ingrese su nombre completo: ")
+
+        Sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
+
+    elif opcion == 2:
+
+        telefono = int(input("Ingrese su teléfono: "))
+        correo = input("Ingrese su correo electrónico: ")
+        rut = int(input("Ingrese su número de rut: "))
+        nombre = input("Ingrese el nombre de su emoresa: ")
+        web = input("Ingrese su sitio web: ")
+
+        Sistema.registrar_empresa(telefono, correo, rut, nombre, web)
+
+# elif A == 1 and B == 4:
+
+#     lista_id = []
+#     for c in Sistema.lista_clientes:
+#         lista_id.append(c.id())
+
+#     print (lista_id)
+
+#     elijo_cliente = input("Elija un cliente en particular: ") 
+
+#     lista_codigo_maquina = []
+#     for d in Sistema.lista_maquina:
+#         lista_codigo_maquina.append(d.codigo())
+
+#     print (lista_codigo_maquina)
+
+#     elijo_maquina = input("Elija una maquina en particular: ")
+
+#     if Pieza.cantidad_stock()
+
+# elif A == 1 and B == 5:
+
+# elif A == 1 and B == 6:
+
+#     print("Ha salido del programa.")
+
+# else: #Acá va el error si el usario ingresa un valor mayor a seis o negativo.
