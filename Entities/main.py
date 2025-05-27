@@ -112,19 +112,19 @@ elif A == 1 and B == 3:
 
 #     lista_id = []
 #     for c in Sistema.lista_clientes:
-#         lista_id.append(c.id()) #ISINSTANCE PARA SABER EL NOMBRE E IMPRIMIRLO TMB
+#     lista_id.append(c.id(), c.nombre_completo()) #ISINSTANCE PARA SABER EL NOMBRE E IMPRIMIRLO TMB
 
-#     print (lista_id)
+    # print (lista_id)
 
-#     elijo_cliente = input("Elija un cliente en particular: ") 
+    # elijo_cliente = input("Elija un cliente en particular: ") 
 
 #     lista_codigo_maquina = []
 #     for d in Sistema.lista_maquina:
 #         lista_codigo_maquina.append(d.codigo()) #USAR MAQUINA COMO OBJETO, NO SOLO EL CODIGO, ordenar por tipo de cliente para luego cacular el costo
 
-#     print (lista_codigo_maquina)
+    # print (lista_codigo_maquina)
 
-#     elijo_maquina = input("Elija una maquina en particular: ")
+    # elijo_maquina = input("Elija una maquina en particular: ")
 
 #     if pieza.cantidad_stock()
 
