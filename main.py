@@ -73,7 +73,7 @@ elif A == 1 and B == 2:
                 lista_piezas.remove(pieza)
 
 
-        requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
+        requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No): ")
 
 
 
