@@ -10,6 +10,8 @@ class Maquina:
         self.codigo = Maquina.codigo_maquina
         self.descripcion = descripcion
         self.requerimientos=[]
+        self.costo_produccion = 0
+        self.disponibilidad = False
 
     # def costo_produccion(self):
     #     total = 0
@@ -17,17 +19,18 @@ class Maquina:
     #         total = total + requerimiento.pieza.costo_USD() * requerimiento.cantidad_requerida 
 
     #     #FUNCION AUXILIAR PARA BUSCAR EL COSTO A PARTIR DEL CODIGO DE LA PIEZA QUE PEDIMOS POR TERMINAL
+    #RECORRER REQUERIMIENTOS, NO PIEZA.
     #     for c in lista_pieza:
     #     if codigo == c.codigo():
     #         return c.costo_USD()
 
 
-    #Disponibilididad tiene que ser booleano
+    # Disponibilididad tiene que ser booleano
     # def disponibilidad(self):
     #     for requerimiento in self.requerimientos:
     #         if requerimiento.pieza.cantidad_stock < requerimiento.cantidad_requerida:
     #             return False
-    #     return true
+    #     return True
 
 
     def agregar_requerimiento(self, pieza, cantidad):

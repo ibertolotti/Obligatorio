@@ -1,5 +1,5 @@
 from pieza import Pieza
-from maquina import Maquina
+
 
 class Requerimiento:
     def _init_(self,pieza,cantidad_requerida):

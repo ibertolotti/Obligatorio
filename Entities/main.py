@@ -1,5 +1,11 @@
-from Entities.sistema import Sistema
-from Entities.pieza import Pieza
+from sistema import Sistema
+from datetime import datetime
+from clientes import ClienteParticular, Empresa
+from pieza import Pieza
+from maquina import Maquina
+from pedido import Pedido
+from reposicion import Reposicion
+from requerimiento import Requerimiento
 
 # sistema = Sistema() #el de taller dijo que es necesario para poder llamar al sistema
 

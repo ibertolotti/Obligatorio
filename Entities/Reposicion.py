@@ -1,5 +1,4 @@
 from datetime import datetime
-from pieza import Pieza
 
 class Reposicion:
 
@@ -7,6 +6,7 @@ class Reposicion:
         self.__pieza = pieza 
         self.__cantidad_lotes = cantidad_lotes
         self.__fecha_reposicion = datetime.now()
+        self.__costo_USD = self.__pieza.costo_USD() * self.__pieza.lote() * self.__cantidad_lotes
 
     @property
     def cantidad_lotes(self):
@@ -20,5 +20,5 @@ class Reposicion:
     def pieza(self):
         return self.__pieza
 
-    def costo(self): 
-        return pieza().costo_USD*pieza().lote*cantidad_lotes()
+    # def costo(self): 
+    #     return pieza().costo_USD*pieza().lote*cantidad_lotes()
