@@ -55,24 +55,27 @@ elif A == 1 and B == 2:
 
     descripcion = input("Ingrese la descripción de la máquina: ")
     requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
-    lista_requisitos = []
 
+    maquina_nueva = Sistema.registrar_maquina(descripcion)
+    
     lista_piezas = []
     for p in Sistema.lista_pieza:
         lista_piezas.append(p)
 
     while requisito == "Si" or requisito == "si":
         for p in Sistema.lista_pieza:
-            print(lista_piezas.codigo(), lista_piezas.descripcion())
+            print(p.codigo(), p.descripcion())
         elijo_pieza = input("Elija una pieza como requisito de la maquina (ingrese el codigo): ")
         for pieza in lista_piezas:
             if elijo_pieza == pieza.codigo():
-                lista_requisitos.append(pieza)
+                cantidad = input("Ingrese la cantidad de la pieza requerida: ")
+                maquina_nueva.agregar_requerimiento(pieza, cantidad)
                 lista_piezas.remove(pieza)
+
 
         requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No) ")
 
-    Sistema.registrar_maquina(descripcion, lista_requisitos)
+
 
 elif A == 1 and B == 3:
 
