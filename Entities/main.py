@@ -79,7 +79,7 @@ elif A == 1 and B == 2:
                 maquina_nueva.agregar_requerimiento(pieza, cantidad)
                 lista_piezas.remove(pieza)
 
-        requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No): ")
+        requisito = input("¿Desea ingresar un nuevo reqisito de pieza? (Si/No): ")
 
 elif A == 1 and B == 3:
 

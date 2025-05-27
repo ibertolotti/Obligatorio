@@ -7,8 +7,9 @@ class Pedido:
         self.__cliente = cliente
         self.__maquina = maquina
         self.__fecha_realizado = datetime.now()
-        # self.__fecha_entregado = 
-        # self.__estado = estado
+        self.__fecha_entregado = 0
+        self.__estado = ""
+        self.precio_pedido = 0
 
     @property
     def cliente(self):
@@ -18,17 +19,26 @@ class Pedido:
     def maquina(self):
         return self.__maquina
 
-    # @property
-    # def fecha_realizado(self):
-    #     return fecha_realizado
+    @property
+    def fecha_realizado(self):
+        return self.__fecha_realizado
 
-    # @property
-    # def fecha_entregado(self):
-    #     return fecha_entregado
+    @property
+    def fecha_entregado(self):
+        return self.__fecha_entregado
 
     @property
     def estado(self):
         return self.__estado
     
+    @fecha_entregado.setter
+    def fecha_entregado(self, fecha):
+        self.__fecha_entregado = fecha
+
+    @estado.setter
+    def estado(self, estado):
+        self.__estado = estado
+
+    #Funcion auxiliar para calcular precio:
     # def precio(self):
     #     #primero hay que terminar el costo de produccion de maquina.

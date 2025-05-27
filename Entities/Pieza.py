@@ -31,18 +31,6 @@ class Pieza:
         return self.__cantidad_stock
     
     #SETTERS
-    @descripcion.setter
-    def cambiar_descripcion(self, descripcion_nueva):
-        self.__descripcion = descripcion_nueva 
-
-    @costo_USD.setter
-    def cambiar_costo(self, costo_USD_nuevo):
-        self.__costo_USD = costo_USD_nuevo
-
-    @lote.setter
-    def cambiar_lote(self, lote_nuevo):
-        self.__lote = lote_nuevo
-
     @cantidad_stock.setter
-    def cambiar_cantidad_stock(self, stock_nuevo):
-        self.__cantidad_stock += stock_nuevo
+    def cantidad_stock(self, stock_nuevo):
+        self.__cantidad_stock = stock_nuevo
