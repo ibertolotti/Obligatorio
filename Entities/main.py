@@ -110,23 +110,23 @@ elif A == 1 and B == 3:
 
 # elif A == 1 and B == 4:
 
-#     lista_id = []
-#     for c in Sistema.lista_clientes:
-#         lista_id.append(c.id())
+    lista_id = []
+    for c in Sistema.lista_clientes:
+        lista_id.append(c.id(),c.nombre_completo())
 
-#     print (lista_id)
+    print (lista_id)
 
-#     elijo_cliente = input("Elija un cliente en particular: ") 
+    elijo_cliente = input("Elija un cliente en particular: ") 
 
-#     lista_codigo_maquina = []
-#     for d in Sistema.lista_maquina:
-#         lista_codigo_maquina.append(d.codigo())
+    lista_codigo_maquina = []
+    for d in Sistema.lista_maquina:
+        lista_codigo_maquina.append(d.codigo())
 
-#     print (lista_codigo_maquina)
+    print (lista_codigo_maquina)
 
-#     elijo_maquina = input("Elija una maquina en particular: ")
+    elijo_maquina = input("Elija una maquina en particular: ")
 
-#     if Pieza.cantidad_stock()
+    # if Pieza.cantidad_stock()
 
 # elif A == 1 and B == 5:
 
