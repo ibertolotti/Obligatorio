@@ -3,12 +3,12 @@ from datetime import datetime
 # from maquina import Maquina
 
 class Pedido:
-    def __init__(self, cliente, maquina, estado):
+    def __init__(self, cliente, maquina):
         self.__cliente = cliente
         self.__maquina = maquina
         self.__fecha_realizado = datetime.now()
         # self.__fecha_entregado = 
-        self.__estado = estado
+        # self.__estado = estado
 
     @property
     def cliente(self):

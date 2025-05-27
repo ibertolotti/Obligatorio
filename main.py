@@ -1,6 +1,7 @@
 from Entities.sistema import Sistema
+from Entities.pieza import Pieza
 
-# sistema = Sistema() #el de taler dijo que es necesario para poder llamar al sistema
+# sistema = Sistema() #el de taller dijo que es necesario para poder llamar al sistema
 
 print ("1. Registrar")
 print ("2. Listar")
@@ -72,10 +73,7 @@ elif A == 1 and B == 2:
                 maquina_nueva.agregar_requerimiento(pieza, cantidad)
                 lista_piezas.remove(pieza)
 
-
         requisito = input("¿Desea ingresar un reqisito de pieza? (Si/No): ")
-
-
 
 elif A == 1 and B == 3:
 
@@ -125,6 +123,8 @@ elif A == 1 and B == 3:
 #     if Pieza.cantidad_stock()
 
 # elif A == 1 and B == 5:
+
+
 
 # elif A == 1 and B == 6:
 

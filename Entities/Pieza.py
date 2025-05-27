@@ -33,21 +33,16 @@ class Pieza:
     #SETTERS
     @descripcion.setter
     def cambiar_descripcion(self, descripcion_nueva):
-        self.__descripcion=descripcion_nueva 
+        self.__descripcion = descripcion_nueva 
 
     @costo_USD.setter
     def cambiar_costo(self, costo_USD_nuevo):
-        self.__costo_USD=costo_USD_nuevo
+        self.__costo_USD = costo_USD_nuevo
 
     @lote.setter
     def cambiar_lote(self, lote_nuevo):
-        self.__lote=lote_nuevo
+        self.__lote = lote_nuevo
 
     @cantidad_stock.setter
     def cambiar_cantidad_stock(self, stock_nuevo):
-        self.__cantidad_stock=stock_nuevo
-
-#Capaz que aumentar stock tiene que estar en sistema:
-    def aumentar_stock(self, cantidad_lotes):
-        self.__cantidad_stock = self.__cantidad_stock + cantidad_lotes*self.lote
-        return cantidad_lotes
+        self.__cantidad_stock += stock_nuevo
