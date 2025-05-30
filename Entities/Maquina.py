@@ -3,7 +3,6 @@ from pieza import Pieza
 
 class Maquina:
     codigo_maquina = 0
-
     def __init__(self, descripcion):
         Maquina.codigo_maquina += 1
 
@@ -29,12 +28,12 @@ class Maquina:
         requerimiento = Requerimiento(self, pieza, cantidad)
         self.__requerimientos.append(requerimiento)
 
-    #Funcion auxiliar:
     def costo(self):
         total = 0
         for requerimiento in self.requerimientos:
             total = total + requerimiento.pieza.costo_USD * requerimiento.cantidad_requerida 
-        return total
+            self.costo_produccion = total
+        return self.costo_produccion
 
     # Disponibilididad tiene que ser booleano
     # def disponibilidad(self):

@@ -1,6 +1,5 @@
 from pieza import Pieza
 
-
 class Requerimiento:
     def _init_(self,pieza,cantidad_requerida):
         self.__pieza = pieza
@@ -9,14 +8,14 @@ class Requerimiento:
     @property
     def pieza(self):
         return self.__pieza
-    
-    @pieza.setter
-    def nueva_pieza(self, nueva_pieza):
-        self.__pieza = nueva_pieza
 
     @property
     def cantidad_requerida(self):
         return self.__cantidad_requerida
+    
+    @pieza.setter
+    def nueva_pieza(self, nueva_pieza):
+        self.__pieza = nueva_pieza
     
     @cantidad_requerida.setter
     def nueva_cantidad_requerida(self, nueva_cantidad):

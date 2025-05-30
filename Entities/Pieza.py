@@ -9,7 +9,7 @@ class Pieza:
         self.__lote = int(lote)
         self.__cantidad_stock = int(cantidad_stock)
 
-    #GETTERS
+    #Getters:
     @property
     def codigo(self):
         return self.__codigo
@@ -30,7 +30,7 @@ class Pieza:
     def cantidad_stock(self):
         return self.__cantidad_stock
     
-    #SETTERS
+    #Setters:
     @cantidad_stock.setter
     def cantidad_stock(self, stock_nuevo):
         self.__cantidad_stock = stock_nuevo
