@@ -71,10 +71,10 @@ elif A == 1 and B == 2:
 
     while requisito == "Si" or requisito == "si":
         for p in sistema.lista_pieza:
-            print(p.codigo(), p.descripcion())
+            print(p.codigo, p.descripcion)
         elijo_pieza = input("Elija una pieza como requisito de la maquina (ingrese el codigo): ")
         for pieza in lista_piezas:
-            if elijo_pieza == pieza.codigo():
+            if elijo_pieza == pieza.codigo:
                 cantidad = input("Ingrese la cantidad de la pieza requerida: ")
                 maquina_nueva.agregar_requerimiento(pieza, cantidad)
                 lista_piezas.remove(pieza)
@@ -127,14 +127,24 @@ elif A == 1 and B == 4:
     for c in sistema.lista_clientes:
         if c.id == elijo_cliente:
             cliente_pedido = c
+            break #para que una vez que lo encuentre no siga el bucle
 
     lista_codigo_maquina = []
     for d in sistema.lista_maquina:
-        lista_codigo_maquina.append(d.codigo) #USAR MAQUINA COMO OBJETO, NO SOLO EL CODIGO, ordenar por tipo de cliente para luego cacular el costo
+        lista_codigo_maquina.append(d.codigo, d.descripcion) #USAR MAQUINA COMO OBJETO, NO SOLO EL CODIGO, ordenar por tipo de cliente para luego cacular el costo
 
     print (lista_codigo_maquina)
 
-    elijo_maquina = input("Elija una maquina en particular: ")
+    elijo_maquina = input("Ingrese el codigo de la maquina: ")
+
+    for d in sistema.lista_maquina:
+        if d.codigo == elijo_maquina:
+            maquina_pedido = d
+            break
+
+    Sistema.registrar_pedido(cliente_pedido, maquina_pedido)
+
+    
 
 #     if pieza.cantidad_stock()
 
