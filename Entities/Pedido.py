@@ -39,17 +39,6 @@ class Pedido:
     def estado(self, estado):
         self.__estado = estado
 
-    #Función auxiliar
-    def tipo_cliente(self):
-        if isinstance(self.cliente, ClienteParticular):
-            return "ClienteParticular"
-        elif isinstance(self.cliente, Empresa):
-            return "Empresa"
-
-    #Función auxiliar
-    def precio_compra(self):
-        if self.cliente.tipo_cliente() == "ClienteParticular":
-            self.precio_pedido = self.maquina.costo_produccion() * 1,5 
-        elif self.cliente.tipo_cliente() == "Empresa":
-            self.precio_pedido = (self.maquina.costo_produccion() * 1,5) * 0,8
-        return self.precio_pedido
+    #Funcion auxiliar para calcular precio:
+    # def precio(self):
+    #     #primero hay que terminar el costo de produccion de maquina.
