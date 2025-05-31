@@ -1,5 +1,3 @@
-from pieza import Pieza
-
 class Requerimiento:
     def _init_(self,pieza,cantidad_requerida):
         self.__pieza = pieza

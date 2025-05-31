@@ -1,10 +1,10 @@
-from datetime import datetime
+# from datetime import datetime
 from clientes import ClienteParticular, Empresa
 from pieza import Pieza
 from maquina import Maquina
 from pedido import Pedido
 from reposicion import Reposicion
-from requerimiento import Requerimiento
+# from requerimiento import Requerimiento
 
 class Sistema:
     def __init__(self):
@@ -12,7 +12,7 @@ class Sistema:
         self.__lista_maquina = []
         self.__lista_clientes = []
         self.__lista_pedido = []
-        self.__lista_contabilidad=[]
+        self.__lista_contabilidad = []
 
     @property
     def lista_pieza(self):
@@ -39,12 +39,9 @@ class Sistema:
         self.lista_pieza.append(pieza)
         return self.lista_pieza
 
-    def registrar_maquina(self, descripcion, all_requerimientos):
+    def registrar_maquina(self, descripcion):
         maquina = Maquina(descripcion)
-        for pieza, cantidad in all_requerimientos:
-            maquina.agregar_requerimiento(pieza, cantidad)
-        self.lista_maquina.append(maquina)
-        return self.lista_maquina
+        return maquina
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
@@ -62,5 +59,5 @@ class Sistema:
         return self.lista_pedido
     
     def registrar_reposicion(self, pieza, cantidad_lotes):
-        reposicion = Reposicion(cantidad_lotes)
+        reposicion = Reposicion(pieza, cantidad_lotes)
         return reposicion

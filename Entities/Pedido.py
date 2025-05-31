@@ -38,7 +38,3 @@ class Pedido:
     @estado.setter
     def estado(self, estado):
         self.__estado = estado
-
-    #Funcion auxiliar para calcular precio:
-    # def precio(self):
-    #     #primero hay que terminar el costo de produccion de maquina.

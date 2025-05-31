@@ -41,5 +41,3 @@ class Maquina:
     #         if requerimiento.pieza.cantidad_stock < requerimiento.cantidad_requerida:
     #             return False
     #     return True
-
-
