@@ -3,8 +3,8 @@ from abc import ABC
 class Cliente(ABC):
     id=0
     def __init__(self, telefono, correo):
-        Cliente.id += 1
         self.__id = Cliente.id
+        Cliente.id += 1
         self.__telefono = telefono
         self.__correo = correo
 

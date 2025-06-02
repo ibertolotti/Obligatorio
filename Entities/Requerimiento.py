@@ -12,9 +12,9 @@ class Requerimiento:
         return self.__cantidad_requerida
     
     @pieza.setter
-    def nueva_pieza(self, nueva_pieza):
+    def pieza(self, nueva_pieza):
         self.__pieza = nueva_pieza
     
     @cantidad_requerida.setter
-    def nueva_cantidad_requerida(self, nueva_cantidad):
-        self.__cantidad_requerida = nueva_cantidad
+    def cantidad_requerida(self, nueva_cantidad_requerida):
+        self.__cantidad_requerida = nueva_cantidad_requerida

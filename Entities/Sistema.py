@@ -14,6 +14,7 @@ class Sistema:
         self.__lista_pedido = []
         self.__lista_contabilidad = []
 
+    #Getters
     @property
     def lista_pieza(self):
         return self.__lista_pieza
@@ -60,4 +61,4 @@ class Sistema:
     
     def registrar_reposicion(self, pieza, cantidad_lotes):
         reposicion = Reposicion(pieza, cantidad_lotes)
-        return reposicion
+        return reposicion 
