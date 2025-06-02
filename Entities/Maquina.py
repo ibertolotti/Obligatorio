@@ -34,10 +34,3 @@ class Maquina:
             total = total + requerimiento.pieza.costo_USD * requerimiento.cantidad_requerida 
             self.costo_produccion = total
         return self.costo_produccion
-
-    # Disponibilididad tiene que ser booleano
-    # def disponibilidad(self):
-    #     for requerimiento in self.requerimientos:
-    #         if requerimiento.pieza.cantidad_stock < requerimiento.cantidad_requerida:
-    #             return False
-    #     return True

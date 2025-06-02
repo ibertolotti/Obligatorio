@@ -42,6 +42,9 @@ class Sistema:
 
     def registrar_maquina(self, descripcion):
         maquina = Maquina(descripcion)
+        for req in maquina.requerimientos:
+            if req.pieza.cantidad_stock >= req.cantidad_requerida:
+                maquina.disponibilidad = True
         return maquina
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
