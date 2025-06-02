@@ -1,10 +1,10 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class Cliente(ABC):
     id=0
     def __init__(self, telefono, correo):
-        self.__id = Cliente.id
         Cliente.id += 1
+        self.__id = Cliente.id
         self.__telefono = telefono
         self.__correo = correo
 

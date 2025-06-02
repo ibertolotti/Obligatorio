@@ -228,6 +228,7 @@ while Encendido == True:
             C = int(input("Seleccione una opción: "))
 
             if C == 1:
+
                 if sistema.__lista_clientes == []:
                     print("No hay clientes registrados.")
 
@@ -241,26 +242,31 @@ while Encendido == True:
                             tipo = "Empresa"
                             print(tipo, a.telefono, a.correo, a.rut, a.nombre, a.web)
 
-            # elif C == 2:
-            #     filtrar = input("¿Desea filtrar los pedidos por estado de entrega?(Si/No): ")
-            #     if filtrar == "si" or filtrar=="SI" or filtrar=="Si":
-            #         print("1.Pendientes")
-            #         print("2.Entregados")
-            #         estado = int(input("Seleccione una opcion: "))
-            #         if estado == 1:
-            #             for a in sistema.lista_pedido:
-            #                 if a.estado=="Pendiente":
-            #                     print("\n LISTA DE PEDIDOS PENDIENTES:")
-            #                     print(a.cliente, a.maquina, a.fecha_realizado, a.precio_pedido)
-            #         else:
-            #             for a in sistema.lista_pedido:
-            #                 if a.estado == "Entregado":
-            #                     print("\n LISTA DE PEDIDOS ENTREGADOS:")
-            #                     print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
-            #     elif filtrar == "no" or filtrar == "NO" or filtrar == "No":
-            #         print("\n LISTA DE PEDIDOS:")
-            #         for a in sistema.lista_pedido:
-                        # print(a.)
+            elif C == 2:
+
+                filtrar = input("¿Desea filtrar los pedidos por estado de entrega?(Si/No): ")
+
+                if filtrar == "si" or filtrar=="SI" or filtrar=="Si":
+                    print("1.Pendientes")
+                    print("2.Entregados")
+                    estado = int(input("Seleccione una opcion: "))
+
+                    if estado == 1:
+                        for a in sistema.lista_pedido:
+                            if a.estado=="Pendiente":
+                                print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                print(a.cliente, a.maquina, a.fecha_realizado, a.precio_pedido)
+                    else:
+                        for a in sistema.lista_pedido:
+                            if a.estado == "Entregado":
+                                print("\n LISTA DE PEDIDOS ENTREGADOS:")
+                                print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+
+                elif filtrar == "no" or filtrar == "NO" or filtrar == "No":
+                    print("\n LISTA DE PEDIDOS:")
+
+                    for a in sistema.lista_pedido:
+                        print(a.)
 
                 
                     # print("-" * 20)
@@ -268,7 +274,6 @@ while Encendido == True:
 
                     # for c in sistema.lista_clientes:
                     #     print(f"{c.id:<5} {c.ti}")
-
 
     elif A == 3:
         print ("          ")
