@@ -1,5 +1,5 @@
 class Requerimiento:
-    def _init_(self,pieza,cantidad_requerida):
+    def __init__(self, pieza, cantidad_requerida):
         self.__pieza = pieza
         self.__cantidad_requerida = int(cantidad_requerida)
 
