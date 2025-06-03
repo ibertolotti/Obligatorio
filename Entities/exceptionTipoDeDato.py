@@ -1,0 +1,2 @@
+class ExceptionTipoDeDato(Exception):
+    pass

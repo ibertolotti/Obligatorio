@@ -4,6 +4,9 @@ from pieza import Pieza
 from maquina import Maquina
 from pedido import Pedido
 from reposicion import Reposicion
+from exceptionClienteYaExiste import ExceptionClienteYaExiste
+from exceptionTipoDeDato import ExceptionTipoDeDato
+from exceptionPiezaYaExiste import ExceptionPiezaYaExiste
 # from requerimiento import Requerimiento
 
 class Sistema:
@@ -36,6 +39,32 @@ class Sistema:
         return self.__lista_contabilidad
 
     def registrar_pieza(self, descripcion, costo_USD, lote, cantidad_stock=0):
+        for a in self.lista_pieza:
+            if a.descripcion==descripcion:
+                raise ExceptionPiezaYaExiste
+            
+        if isinstance(descripcion, str):
+            pass
+        else:
+            raise ExceptionTipoDeDato
+            
+        if isinstance(costo_USD, float) and costo_USD>0:
+            pass
+        elif isinstance(costo_USD, int) and costo_USD>0:
+            costo_USD=float(costo_USD)
+        else:
+            raise ExceptionTipoDeDato
+        
+        if isinstance(lote, int) and lote>0:
+            pass
+        else:
+            raise ExceptionTipoDeDato
+        
+        if isinstance(cantidad_stock, int) and cantidad_stock>0:
+            pass
+        else:
+            raise ExceptionTipoDeDato
+
         pieza = Pieza(descripcion, costo_USD, lote, cantidad_stock)
         self.lista_pieza.append(pieza)
         return self.lista_pieza
@@ -48,15 +77,22 @@ class Sistema:
         return maquina
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
+        for c in self.lista_clientes:
+            if c.cedula==cedula:
+                raise ExceptionClienteYaExiste
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
         return self.lista_clientes
     
+    
     def registrar_empresa(self, telefono, correo, rut, nombre, web):
+        for e in self.lista_clientes:
+            if e.rut==rut:
+                raise ExceptionClienteYaExiste
         cliente_empresa = Empresa(telefono, correo, rut, nombre, web)
         self.lista_clientes.append(cliente_empresa)
         return self.lista_clientes
-    
+            
     def registrar_pedido(self, cliente, maquina):
         pedido = Pedido(cliente, maquina)
         self.lista_pedido.append(pedido)

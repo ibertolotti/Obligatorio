@@ -5,9 +5,9 @@ class Pieza:
         
         self.__codigo = Pieza.codigo_pieza
         self.__descripcion = descripcion
-        self.__costo_USD = float(costo_USD)
-        self.__lote = int(lote)
-        self.__cantidad_stock = int(cantidad_stock)
+        self.__costo_USD = costo_USD
+        self.__lote = lote
+        self.__cantidad_stock = cantidad_stock
 
     #Getters:
     @property
