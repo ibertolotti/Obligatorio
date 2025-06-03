@@ -11,7 +11,6 @@ class Pedido:
         self.__estado = ""
         self.precio_pedido = 0
 
-    #Getters
     @property
     def cliente(self):
         return self.__cliente
@@ -32,7 +31,6 @@ class Pedido:
     def estado(self):
         return self.__estado
     
-    #Setters
     @fecha_entregado.setter
     def fecha_entregado(self, fecha):
         self.__fecha_entregado = fecha

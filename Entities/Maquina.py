@@ -25,7 +25,7 @@ class Maquina:
         return self.__requerimientos
 
     def agregar_requerimiento(self, pieza, cantidad):
-        requerimiento = Requerimiento(self, pieza, cantidad)
+        requerimiento = Requerimiento(pieza, cantidad)
         self.__requerimientos.append(requerimiento)
 
     def costo(self):
