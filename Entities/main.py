@@ -15,6 +15,7 @@ from exceptionClienteNoExiste import ExceptionClienteNoExiste
 from exceptionMaquinaNoExiste import ExceptionMaquinaNoExiste
 from exceptionPiezaNoExiste import ExceptionPiezaNoExiste
 from exceptionTelefono import ExceptionTelefono
+from exceptionCorreoArroba import ExceptionCorreoArroba
 
 sistema = Sistema() #Es necesario para poder llamar al sistema
 
@@ -141,6 +142,8 @@ while Encendido == True:
                             print("La cedula ingresada es inválida \n")
                         except ValueError:
                             print("Este dato es inválido")
+                        except ExceptionCorreoArroba:
+                            print("El correo ingresado es inválido")
                         
 
                 elif opcion == 2:
@@ -161,6 +164,8 @@ while Encendido == True:
                             print("El rut ingresado es inválido")
                         except ValueError:
                             print("Este dato es inválido")
+                        except ExceptionCorreoArroba:
+                            print("El correo ingresado es inválido")
 
                 print("Se ha registrado el cliente con éxito")
                 
@@ -344,10 +349,16 @@ while Encendido == True:
 
                         for a in sistema.lista_pedido:
                             if a.estado=="Pendiente":
-                                    print(a.cliente, a.maquina, a.fecha_realizado, a.precio_pedido)
+                                if isinstance(a.cliente, ClienteParticular):
+                                    print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                elif isinstance(a.cliente, Empresa):
+                                    print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
                             elif a.estado == "Entregado":
-                                    print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
-
+                                if isinstance(a.cliente, ClienteParticular):
+                                    print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                elif isinstance(a.cliente, Empresa):
+                                    print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                
                     else:
                         print("Ingrese una opción válida: ")
                         bucle = True

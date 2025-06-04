@@ -1,0 +1,2 @@
+class ExceptionCorreoArroba(Exception):
+    pass

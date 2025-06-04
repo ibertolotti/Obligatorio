@@ -12,6 +12,7 @@ from exceptionClienteNoExiste import ExceptionClienteNoExiste
 from exceptionMaquinaNoExiste import ExceptionMaquinaNoExiste
 from exceptionPiezaNoExiste import ExceptionPiezaNoExiste
 from exceptionTelefono import ExceptionTelefono
+from exceptionCorreoArroba import ExceptionCorreoArroba
 # from requerimiento import Requerimiento
 
 class Sistema:
@@ -95,9 +96,13 @@ class Sistema:
         
         if len(str(telefono))!= 8: #No ponemos celular de 9 digitos ya que el primer digito es 0 y al transformarlo a int no lo cuenta
             raise ExceptionTelefono
+        if not str(telefono).startswith("9"): #Ponemos solo el 9 por la misma razon que el anterior
+            raise ExceptionTelefono
         
         if len(str(cedula))!= 8:
             raise ExceptionTipoDeDato
+        if "@" not in correo:
+            raise ExceptionCorreoArroba
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
@@ -114,6 +119,10 @@ class Sistema:
         
         if len(str(rut)) != 12:
             raise ExceptionTipoDeDato
+        
+        if "@" not in correo:
+            raise ExceptionCorreoArroba
+        
         
         cliente_empresa = Empresa(telefono, correo, rut, nombre, web)
         self.lista_clientes.append(cliente_empresa)
