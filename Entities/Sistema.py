@@ -11,6 +11,7 @@ from exceptionMaquinaYaExiste import ExceptionMaquinaYaExiste
 from exceptionClienteNoExiste import ExceptionClienteNoExiste
 from exceptionMaquinaNoExiste import ExceptionMaquinaNoExiste
 from exceptionPiezaNoExiste import ExceptionPiezaNoExiste
+from exceptionTelefono import ExceptionTelefono
 # from requerimiento import Requerimiento
 
 class Sistema:
@@ -92,10 +93,10 @@ class Sistema:
                 if c.cedula==cedula:
                     raise ExceptionClienteYaExiste
         
-        if len(str(telefono)) < 9 and len(str(telefono)) > 9:
-            raise ExceptionTipoDeDato
+        if len(str(telefono))!= 8: #No ponemos celular de 9 digitos ya que el primer digito es 0 y al transformarlo a int no lo cuenta
+            raise ExceptionTelefono
         
-        if len(str(cedula)) != 8:
+        if len(str(cedula))!= 8:
             raise ExceptionTipoDeDato
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
@@ -109,7 +110,7 @@ class Sistema:
                     raise ExceptionClienteYaExiste
                 
         if len(str(telefono)) != 8:
-            raise ExceptionTipoDeDato
+            raise ExceptionTelefono
         
         if len(str(rut)) != 12:
             raise ExceptionTipoDeDato
