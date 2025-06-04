@@ -23,7 +23,6 @@ class Sistema:
         self.__lista_pedido = []
         self.__lista_contabilidad = []
 
-    #Getters
     @property
     def lista_pieza(self):
         return self.__lista_pieza
@@ -94,9 +93,9 @@ class Sistema:
                 if c.cedula==cedula:
                     raise ExceptionClienteYaExiste
         
-        if len(str(telefono))!= 8: #No ponemos celular de 9 digitos ya que el primer digito es 0 y al transformarlo a int no lo cuenta
+        if len(str(telefono))!= 8: #No ponemos celular con 9 digitos ya que el primer digito es 0 y al transformarlo a int no lo cuenta
             raise ExceptionTelefono
-        if not str(telefono).startswith("9"): #Ponemos solo el 9 por la misma razon que el anterior
+        if not str(telefono).startswith("9"): #Ponemos solo el 9 por la misma razón que el anterior
             raise ExceptionTelefono
         
         if len(str(cedula))!= 8:
@@ -122,7 +121,6 @@ class Sistema:
         
         if "@" not in correo:
             raise ExceptionCorreoArroba
-        
         
         cliente_empresa = Empresa(telefono, correo, rut, nombre, web)
         self.lista_clientes.append(cliente_empresa)
