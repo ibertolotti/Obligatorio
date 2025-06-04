@@ -299,7 +299,7 @@ while Encendido == True:
 
             if C == 1:
 
-                if sistema.__lista_clientes == []:
+                if sistema.lista_clientes == []:
                     print("No hay clientes registrados.")
 
                 else:

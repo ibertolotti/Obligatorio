@@ -92,10 +92,10 @@ class Sistema:
                 if c.cedula==cedula:
                     raise ExceptionClienteYaExiste
         
-        if len(str(telefono)) < 9 and len(str(telefono)) > 9:
+        if len(str(telefono))!=9:
             raise ExceptionTipoDeDato
         
-        if len(str(cedula)) != 8:
+        if len(str(cedula))!= 8:
             raise ExceptionTipoDeDato
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
