@@ -121,7 +121,7 @@ class Sistema:
     def registrar_pedido(self, cliente, maquina):
         encontrar_clientes = False
         for a in self.lista_clientes:
-            if a.codigo == cliente.codigo:
+            if a.contador_id == cliente.contador_id:
                 encontrar_clientes = True
         if encontrar_clientes == False:
             raise ExceptionClienteNoExiste
@@ -135,7 +135,7 @@ class Sistema:
 
         pedido = Pedido(cliente, maquina)
         self.lista_pedido.append(pedido)
-        return self.lista_pedido
+        return pedido
     
     def registrar_reposicion(self, pieza, cantidad_lotes):
         encontrar_pieza = False

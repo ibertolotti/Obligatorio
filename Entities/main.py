@@ -116,7 +116,7 @@ while Encendido == True:
                         opcion = int(input("Seleccione una opción: "))
 
                         if opcion != 1 and opcion != 2:
-                            print("Elija una opción válida\n")
+                            print("\n Elija una opción válida \n")
                         
                         else:
                             break
@@ -138,7 +138,7 @@ while Encendido == True:
                         except ExceptionClienteYaExiste:
                             print("Este cliente ya existe, ingrese los datos nuevamente")
                         except ExceptionTipoDeDato:
-                            print("Revise los datos ingresados")
+                            print("Revise los datos ingresados \n")
                         except ValueError:
                             print("Este dato es inválido")
 
@@ -180,12 +180,12 @@ while Encendido == True:
 
                         print (lista_id)
 
-                        elijo_cliente = input("Ingrese el id del cliente: ") 
+                        elijo_cliente = int(input("Ingrese el id del cliente: "))
                         
                         for c in sistema.lista_clientes:
                             if c.id == elijo_cliente:
                                 cliente_pedido = c
-                                break #Para que una vez que lo encuentre no siga el bucle      
+                                break   
 
                         lista_codigo_maquina = []
                         for d in sistema.lista_maquina:
@@ -193,7 +193,7 @@ while Encendido == True:
 
                         print (lista_codigo_maquina)
 
-                        elijo_maquina = input("Ingrese el código de la máquina: ")
+                        elijo_maquina = int(input("Ingrese el código de la máquina: "))
 
                         for d in sistema.lista_maquina:
                             if d.codigo == elijo_maquina:
@@ -202,7 +202,7 @@ while Encendido == True:
 
                         pedido_realizado = sistema.registrar_pedido(cliente_pedido, maquina_pedido)
 
-                        for requerimiento in pedido_realizado.maquina.requerimientos:
+                        for requerimiento in maquina_pedido.requerimientos:
                             if requerimiento.cantidad_requerida <= requerimiento.pieza.cantidad_stock:
                                 pedido_realizado.estado = "Entregado"
                                 pedido_realizado.fecha_entregado = pedido_realizado.fecha_realizado
@@ -219,8 +219,9 @@ while Encendido == True:
 
                         if pedido_realizado.estado == "Entregado":
                             for p in sistema.lista_pieza:
-                                if pedido_realizado.maquina.requerimientos.pieza.codigo == p.codigo:
-                                    p.cantidad_stock = p.cantidad_stock - pedido_realizado.maquina.requerimientos.cantidad_requerida
+                                for j in pedido_realizado.maquina.requerimientos:
+                                    if j.pieza.codigo ==  p.codigo:
+                                        p.cantidad_stock = p.cantidad_stock - j.cantidad_requerida
                         break
                     
                     except ExceptionClienteNoExiste:
@@ -237,7 +238,7 @@ while Encendido == True:
                         for p in sistema.lista_pieza:
                             print(p.codigo, p.descripcion, "El tamaño del lote es: ", p.lote)
 
-                        elijo_reposicion = input("Elija una pieza para reponer (ingrese el codigo): ")
+                        elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el codigo): "))
                         cantidad_reposicion = int(input("Elija cuantos lotes desea reponer: "))
 
                         for e in sistema.lista_pieza:
