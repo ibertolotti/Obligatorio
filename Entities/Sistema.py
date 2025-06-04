@@ -88,8 +88,12 @@ class Sistema:
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
         for c in self.lista_clientes:
-            if c.cedula==cedula:
-                raise ExceptionClienteYaExiste
+            if isinstance (c, ClienteParticular):
+                if c.cedula==cedula:
+                    raise ExceptionClienteYaExiste
+        
+        if len(str(telefono)) < 9 and len(str(telefono)) > 9:
+            raise ExceptionTipoDeDato
         
         if len(str(cedula)) != 8:
             raise ExceptionTipoDeDato
@@ -100,8 +104,12 @@ class Sistema:
     
     def registrar_empresa(self, telefono, correo, rut, nombre, web):
         for e in self.lista_clientes:
-            if e.rut==rut:
-                raise ExceptionClienteYaExiste
+            if isinstance(e, Empresa):
+                if e.rut==rut:
+                    raise ExceptionClienteYaExiste
+                
+        if len(str(telefono)) != 8:
+            raise ExceptionTipoDeDato
         
         if len(str(rut)) != 12:
             raise ExceptionTipoDeDato
