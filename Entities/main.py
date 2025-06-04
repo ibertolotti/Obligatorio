@@ -14,6 +14,7 @@ from exceptionMaquinaYaExiste import ExceptionMaquinaYaExiste
 from exceptionClienteNoExiste import ExceptionClienteNoExiste
 from exceptionMaquinaNoExiste import ExceptionMaquinaNoExiste
 from exceptionPiezaNoExiste import ExceptionPiezaNoExiste
+from exceptionTelefono import ExceptionTelefono
 
 sistema = Sistema() #Es necesario para poder llamar al sistema
 
@@ -59,11 +60,10 @@ while Encendido == True:
                         cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
-
                     except ValueError:
-                        print("Este valor es inválido")
+                        print("Este valor es inválido \n")
                     except ExceptionPiezaYaExiste:
-                        print("La pieza ya existe, ingrese una nueva descripción")
+                        print("La pieza ya existe, ingrese una nueva descripción\n")
                     except ExceptionTipoDeDato:
                         print("\n Ha sido ingresado un dato inválido, intente nuevamente\n")
 
@@ -131,16 +131,17 @@ while Encendido == True:
                             correo = input("Ingrese su correo electrónico: ")
                             cedula = int(input("Ingrese su cédula (sin guión): "))
                             nombre_completo = input("Ingrese su nombre completo: ")
-
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
-
+                        except ExceptionTelefono:
+                            print("Este numero de celular es inválido")
                         except ExceptionClienteYaExiste:
                             print("Este cliente ya existe, ingrese los datos nuevamente")
                         except ExceptionTipoDeDato:
-                            print("Revise los datos ingresados \n")
+                            print("La cedula ingresada es inválida \n")
                         except ValueError:
                             print("Este dato es inválido")
+                        
 
                 elif opcion == 2:
                     while True:
@@ -157,7 +158,7 @@ while Encendido == True:
                         except ExceptionClienteYaExiste:
                             print("Esta empresa ya existe, ingrese los datos nuevamente")
                         except ExceptionTipoDeDato:
-                            print("Revise los datos ingresados")
+                            print("El rut ingresado es inválido")
                         except ValueError:
                             print("Este dato es inválido")
 

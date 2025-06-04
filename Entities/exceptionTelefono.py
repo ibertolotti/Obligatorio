@@ -1,0 +1,2 @@
+class ExceptionTelefono(Exception):
+    pass
