@@ -313,12 +313,12 @@ while Encendido == True:
             elif B == 5:
                 while True:
                     try:
-                        print("Lista de piezas: (código/descripcion/lote)")
+                        print("Lista de piezas (código/descripcion/lote):")
                         for p in sistema.lista_pieza:
-                            print(p.codigo, p.descripcion, "El tamaño del lote es: ", p.lote)
+                            print(p.codigo,".", p.descripcion, ", el tamaño del lote es: ", p.lote)
 
                         while True:
-                            elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
+                            elijo_reposicion = int(input("\nElija una pieza para reponer (ingrese el código): "))
 
                             existencia = False
                             for a in sistema.lista_pieza:
@@ -356,7 +356,7 @@ while Encendido == True:
                         print("\nEste dato es inválido")
 
                 print("\nSe ha registrado la reposición con éxito")
-                print("El costo en dolares de la reposicion es de: ", nueva_reposicion.costo_USD)
+                print("El costo en dolares de la reposicion es de (USD): ", nueva_reposicion.costo_USD)
                 print("La cantidad actualizada de stock de", nueva_reposicion.pieza.descripcion, "es: ", nueva_reposicion.pieza.cantidad_stock)
 
                 Registrar = False
@@ -410,6 +410,11 @@ while Encendido == True:
                 bucle = True
                 while bucle == True:
                     try:
+                        if sistema.__lista_pedido == []:
+                            print("No de han realizado pedidos")
+                            bucle = False
+                            break
+
                         filtrar = input("¿Desea filtrar los pedidos por estado de entrega? (Si/No): ")
 
                         if filtrar == "si" or filtrar=="SI" or filtrar=="Si":
@@ -455,31 +460,38 @@ while Encendido == True:
                 Listar = False
 
             elif C == 3:   
-                print("\nLISTA MÁQUINAS")
-                print("CÓDIGO", "DESCRIPCIÓN", "REQUERIMIENTOS", "COSTO PRODUCCIÓN", "DISPONIBILIDAD")
+                if sistema.lista_maquina == []:
+                    print("No hay maquinas registradas")
+                else:
+                    print("\nLISTA MÁQUINAS")
+                    print("CÓDIGO -", "DESCRIPCIÓN -", "REQUERIMIENTOS -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
 
-                for a in sistema.lista_maquina:
-                    print(a.codigo, a.descripcion, a.requerimientos, a.costo_produccion, a.disponibilidad)
+                    for a in sistema.lista_maquina:
+                        print(a.codigo, a.descripcion, a.requerimientos, a.costo_produccion, a.disponibilidad)
+                
                 Listar = False
 
             elif C == 4:
-                print("\nLISTA PIEZAS")
-                print("CÓDIGO", "DESCRIPCIÓN", "COSTO(USD)", "TAMAÑO DEL LOTE", "CANTIDAD DE STOCK DISPONIBLE", "CANTIDAD DE STOCK FALTANTE", "LOTES FALTANTES")
+                if sistema.lista_pieza == []:
+                    print("No se ha registrado ninguna pieza")
+                else:
+                    print("\nLISTA PIEZAS")
+                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO(USD) -", "TAMAÑO DEL LOTE -", "CANTIDAD DE STOCK DISPONIBLE -", "CANTIDAD DE STOCK FALTANTE -", "LOTES FALTANTES")
 
-                for a in sistema.lista_pieza:
-                    stock_faltante = 0
-                    lotes_faltantes = 0
-                    for p in sistema.lista_pedido:
-                        for r in p.maquina.requerimientos:
-                            if a.codigo == r.pieza.codigo:
-                                if p.estado == "Pendiente":
-                                    stock_faltante += r.cantidad_requerida
-                    if stock_faltante != 0:
-                        stock_faltante -= a.cantidad_stock
-                        lotes_faltantes = math.ceil(stock_faltante/a.lote)
-                        print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
-                    else:
-                        print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                    for a in sistema.lista_pieza:
+                        stock_faltante = 0
+                        lotes_faltantes = 0
+                        for p in sistema.lista_pedido:
+                            for r in p.maquina.requerimientos:
+                                if a.codigo == r.pieza.codigo:
+                                    if p.estado == "Pendiente":
+                                        stock_faltante += r.cantidad_requerida
+                        if stock_faltante != 0:
+                            stock_faltante -= a.cantidad_stock
+                            lotes_faltantes = math.ceil(stock_faltante/a.lote)
+                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                        else:
+                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
 
                 Listar = False
 
