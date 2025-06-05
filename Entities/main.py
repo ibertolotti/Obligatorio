@@ -26,10 +26,10 @@ Listar = True
 while Encendido == True:
     Registrar = True 
     Listar = True
+
     while True:
         try:
-            print("       ")
-            print("MENÚ")
+            print("\nMENÚ")
             print("          ")
             print ("1. Registrar")
             print ("2. Listar")
@@ -40,7 +40,7 @@ while Encendido == True:
             break
 
         except ValueError:
-            print("ERROR: ingrese una de las opciones del menu")
+            print("ERROR: ingrese una de las opciones del menú")
 
     if A == 1:
 
@@ -62,7 +62,7 @@ while Encendido == True:
                     break
 
                 except ValueError:
-                    print("ERROR: ingrese una de las opciones del menu")
+                    print("ERROR: ingrese una de las opciones del menú")
 
             if B == 1:
                 while True:
@@ -74,11 +74,11 @@ while Encendido == True:
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
                     except ValueError:
-                        print("Este valor es inválido\n")
+                        print("\nEste valor es inválido\n")
                     except ExceptionPiezaYaExiste:
-                        print("La pieza ya existe, ingrese una nueva descripción\n")
+                        print("\nLa pieza ya existe, ingrese una nueva descripción\n")
                     except ExceptionTipoDeDato:
-                        print("Ha sido ingresado un dato inválido, intente nuevamente\n")
+                        print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
 
                 print("\nSe ha registrado la pieza con éxito")
 
@@ -125,7 +125,7 @@ while Encendido == True:
                                 if pieza_existe == True:
                                     break
                                 else:
-                                    print("\nERROR: ingrese un código de la lista de piezas")
+                                    print("\nERROR: ingrese un código de la lista de piezas\n")
                             
                             for pieza in lista_piezas_auxiliar:
                                 if elijo_pieza == pieza.codigo:
@@ -134,23 +134,23 @@ while Encendido == True:
                                     lista_piezas_auxiliar.remove(pieza)
                             
                             while True:
-                                requisito = input("\n¿Desea ingresar otro requisito? (sí/no): ").strip().lower() #strip saca los espacios al principio o final y lower hace todo minuscula
+                                requisito = input("\n¿Desea ingresar otro requisito? (si/no): ").strip().lower() #strip saca los espacios al principio o final y lower hace todo minuscula
 
                                 if requisito == "si" or requisito == "sí" or requisito == "no":
                                     break
                                 else:
                                     print("\nERROR: ingrese sí/no")
 
-                            print("Se ha registrado la maquina con éxito")
+                            print("\nSe ha registrado la maquina con éxito")
 
                         maquina_nueva.costo_produccion = maquina_nueva.costo()
-                        print("Se ha registrado la maquina con éxito")
+                        print("\nSe ha registrado la maquina con éxito")
                         break
 
                     except ValueError:
-                        print("Este valor es inválido\n")
+                        print("\nEste valor es inválido\n")
                     except ExceptionMaquinaYaExiste:
-                        print("La máquina ya existe, ingrese una nueva descripción\n")
+                        print("\nLa máquina ya existe, ingrese una nueva descripción\n")
 
                 Registrar = False
 
@@ -165,13 +165,13 @@ while Encendido == True:
                         opcion = int(input("Seleccione una opción: "))
 
                         if opcion != 1 and opcion != 2:
-                            print("Elija una opción válida\n")
+                            print("\nElija una opción válida\n")
                         
                         else:
                             break
 
                     except ValueError:
-                        print("Este dato es inválido\n")
+                        print("\nEste dato es inválido\n")
 
                 if opcion == 1:
                     while True:
@@ -184,15 +184,15 @@ while Encendido == True:
                             break
 
                         except ExceptionTelefono:
-                            print("Este número de celular es inválido\n")
+                            print("\nEste número de celular es inválido\n")
                         except ExceptionClienteYaExiste:
-                            print("Este cliente ya existe, ingrese los datos nuevamente\n")
+                            print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
                         except ExceptionTipoDeDato:
-                            print("La cédula ingresada es inválida\n")
+                            print("\nLa cédula ingresada es inválida\n")
                         except ValueError:
-                            print("Informacion invalida, revise los datos ingresados\n")
+                            print("\nInformación inválida, revise los datos ingresados\n")
                         except ExceptionCorreoArroba:
-                            print("El correo ingresado es inválido\n")
+                            print("\nEl correo ingresado es inválido\n")
 
                 elif opcion == 2:
                     while True:
@@ -207,13 +207,13 @@ while Encendido == True:
                             break
 
                         except ExceptionClienteYaExiste:
-                            print("\nEsta empresa ya existe, ingrese los datos nuevamente")
+                            print("\nEsta empresa ya existe, ingrese los datos nuevamente\n")
                         except ExceptionTipoDeDato:
-                            print("\nEl rut ingresado es inválido")
+                            print("\nEl rut ingresado es inválido\n")
                         except ValueError:
-                            print("\nInformacion invalida, revise los datos ingresados")
+                            print("\nInformación inválida, revise los datos ingresados\n")
                         except ExceptionCorreoArroba:
-                            print("\nEl correo ingresado es inválido")
+                            print("\nEl correo ingresado es inválido\n")
 
                 print("\nSe ha registrado el cliente con éxito")
                 
@@ -302,11 +302,11 @@ while Encendido == True:
                         break
                     
                     except ExceptionClienteNoExiste:
-                        print("\nEl cliente seleccionado no existe, intente nuevamente")
+                        print("\nEl cliente seleccionado no existe, intente nuevamente\n")
                     except ExceptionMaquinaNoExiste:
-                        print("\nLa máquina seleccionada no existe, intente nuevamente")
+                        print("\nLa máquina seleccionada no existe, intente nuevamente\n")
                     except ValueError:
-                        print("\nInformacion invalida, revise los datos ingresados")
+                        print("\nInformacion invalida, revise los datos ingresados\n")
 
                 Registrar = False
 
@@ -328,7 +328,7 @@ while Encendido == True:
                             if existencia == True:
                                 break
                             else:
-                                print("\nERROR: ingrese un código de la lista de piezas")
+                                print("\nERROR: ingrese un código de la lista de piezas\n")
                         
                         
                         cantidad_reposicion = int(input("Elija cuantos lotes desea reponer: "))
@@ -351,9 +351,9 @@ while Encendido == True:
                         break
 
                     except ExceptionPiezaNoExiste:
-                        print("\nLa pieza seleccionada no existe, intente nuevamente")
+                        print("\nLa pieza seleccionada no existe, intente nuevamente\n")
                     except ValueError:
-                        print("\nEste dato es inválido")
+                        print("\nEste dato es inválido\n")
 
                 print("\nSe ha registrado la reposición con éxito")
                 print("El costo en dolares de la reposicion es de (USD): ", nueva_reposicion.costo_USD)
@@ -364,7 +364,6 @@ while Encendido == True:
             elif B == 6:
                 break
                 
-
             else:
                 print("\nEsa opción no es válida\n")
     
@@ -530,12 +529,14 @@ while Encendido == True:
                 print ("          ")
 
     elif A == 3:
+
         print ("          ")
         print("Ha salido del programa")
 
         Encendido = False
 
     else:
+        
         print ("          ")
         print("Esa opción no es válida")
         print ("          ")
