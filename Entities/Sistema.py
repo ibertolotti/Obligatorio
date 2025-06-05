@@ -144,7 +144,7 @@ class Sistema:
 
         encontrar_clientes = False
         for a in self.lista_clientes:
-            if a.contador_id == cliente.contador_id:
+            if a.contador_id == cliente:
                 encontrar_clientes = True
         if encontrar_clientes == False:
             raise ExceptionClienteNoExiste
@@ -155,7 +155,7 @@ class Sistema:
 
         encontrar_maquina = False
         for a in self.lista_maquina:
-            if a.codigo == maquina.codigo:
+            if a.codigo == maquina:
                 encontrar_maquina = True
         if encontrar_maquina == False:
             raise ExceptionMaquinaNoExiste
