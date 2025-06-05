@@ -65,7 +65,7 @@ class Sistema:
         else:
             raise ExceptionTipoDeDato
         
-        if isinstance(cantidad_stock, int) and cantidad_stock>0:
+        if isinstance(cantidad_stock, int) and cantidad_stock>=0:
             pass
         else:
             raise ExceptionTipoDeDato
@@ -92,16 +92,22 @@ class Sistema:
             if isinstance (c, ClienteParticular):
                 if c.cedula==cedula:
                     raise ExceptionClienteYaExiste
-        
-        if len(str(telefono))!= 8: #No ponemos celular con 9 digitos ya que el primer digito es 0 y al transformarlo a int no lo cuenta
+                
+        if not telefono.isdigit():
+            raise ValueError
+        if len(telefono)!= 9: 
             raise ExceptionTelefono
-        if not str(telefono).startswith("9"): #Ponemos solo el 9 por la misma razón que el anterior
+        if not telefono.startswith("09"): 
             raise ExceptionTelefono
-        
-        if len(str(cedula))!= 8:
+
+        if len(cedula)!= 8:
             raise ExceptionTipoDeDato
+        if not cedula.isdigit():
+            raise ValueError
+
         if "@" not in correo:
             raise ExceptionCorreoArroba
+        
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
@@ -113,11 +119,15 @@ class Sistema:
                 if e.rut==rut:
                     raise ExceptionClienteYaExiste
                 
-        if len(str(telefono)) != 8:
+        if len(telefono) != 8 and len(telefono)!=9 :
             raise ExceptionTelefono
+        if not telefono.isdigit():
+            raise ValueError
         
-        if len(str(rut)) != 12:
+        if len(rut) != 12:
             raise ExceptionTipoDeDato
+        if not rut.isdigit():
+            raise ValueError 
         
         if "@" not in correo:
             raise ExceptionCorreoArroba
@@ -152,6 +162,8 @@ class Sistema:
                 encontrar_pieza = True
         if encontrar_pieza == False:
             raise ExceptionPiezaNoExiste
+        if not cantidad_lotes.isdigit():
+            raise ValueError
         
         reposicion = Reposicion(pieza, cantidad_lotes)
         return reposicion 

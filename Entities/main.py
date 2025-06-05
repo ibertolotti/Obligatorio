@@ -130,9 +130,9 @@ while Encendido == True:
                 if opcion == 1:
                     while True:
                         try:
-                            telefono = int(input("Ingrese su número de celular: "))
+                            telefono = input("Ingrese su número de celular: ")
                             correo = input("Ingrese su correo electrónico: ")
-                            cedula = int(input("Ingrese su cédula (sin guión): "))
+                            cedula = input("Ingrese su cédula (sin guión): ")
                             nombre_completo = input("Ingrese su nombre completo: ")
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
@@ -144,16 +144,16 @@ while Encendido == True:
                         except ExceptionTipoDeDato:
                             print("La cédula ingresada es inválida\n")
                         except ValueError:
-                            print("Este dato es inválido\n")
+                            print("Informacion invalida, revise los datos ingresados\n")
                         except ExceptionCorreoArroba:
                             print("El correo ingresado es inválido\n")
 
                 elif opcion == 2:
                     while True:
                         try:
-                            telefono = int(input("Ingrese su teléfono: "))
+                            telefono = input("Ingrese su teléfono: ")
                             correo = input("Ingrese su correo electrónico: ")
-                            rut = int(input("Ingrese su número de rut: "))
+                            rut = input("Ingrese su número de rut: ")
                             nombre = input("Ingrese el nombre de su empresa: ")
                             web = input("Ingrese su sitio web: ")
 
@@ -165,7 +165,7 @@ while Encendido == True:
                         except ExceptionTipoDeDato:
                             print("El rut ingresado es inválido\n")
                         except ValueError:
-                            print("Este dato es inválido\n")
+                            print("Informacion invalida, revise los datos ingresados\n")
                         except ExceptionCorreoArroba:
                             print("El correo ingresado es inválido\n")
 
@@ -258,8 +258,8 @@ while Encendido == True:
                         
                         nueva_reposicion = sistema.registrar_reposicion(pieza_elegida, cantidad_reposicion)
 
-                        print(nueva_reposicion.costo_USD)
-                        print(pieza_elegida.cantidad_stock)
+                        print("El costo en dolares de la reposicion es de: ", nueva_reposicion.costo_USD)
+                        print("La cantidad actualizada de", pieza_elegida.descripcion, "en stock es: ", pieza_elegida.cantidad_stock)
 
                     #Después de la reposición verifica si hay disponibilidad para pedidos pendientes
                         for p in sistema.lista_pedido:
