@@ -26,31 +26,43 @@ Listar = True
 while Encendido == True:
     Registrar = True 
     Listar = True
-    print("       ")
-    print("MENÚ")
-    print("          ")
-    print ("1. Registrar")
-    print ("2. Listar")
-    print ("3. Salir del sistema")
-    print ("          ")
+    while True:
+        try:
+            print("       ")
+            print("MENÚ")
+            print("          ")
+            print ("1. Registrar")
+            print ("2. Listar")
+            print ("3. Salir del sistema")
+            print ("          ")
 
-    A = int(input("Seleccione una opción: "))
+            A = int(input("Seleccione una opción: "))
+            break
+
+        except ValueError:
+            print("Ingrese una de las opciones del menu")
 
     if A == 1:
 
         while Registrar == True:
-            print ("\nREGISTRAR")
-            print ("          ")
-            print ("    1. Pieza")
-            print ("    2. Máquina")
-            print ("    3. Cliente")
-            print ("    4. Pedido")
-            print ("    5. Reposición")
-            print ("    6. Salir")
-            print ("          ")
+            while True:
+                try:
+                    print ("\nREGISTRAR")
+                    print ("          ")
+                    print ("    1. Pieza")
+                    print ("    2. Máquina")
+                    print ("    3. Cliente")
+                    print ("    4. Pedido")
+                    print ("    5. Reposición")
+                    print ("    6. Salir")
+                    print ("          ")
 
-            B = int(input("Seleccione una opción: "))
-            print ("          ")
+                    B = int(input("Seleccione una opción: "))
+                    print ("          ")
+                    break
+
+                except ValueError:
+                    print("Ingrese una de las opciones del menu")
 
             if B == 1:
                 while True:
@@ -189,11 +201,6 @@ while Encendido == True:
                         print (lista_id)
 
                         elijo_cliente = int(input("Ingrese el id del cliente: "))
-                        
-                        for c in sistema.lista_clientes:
-                            if c.id == elijo_cliente:
-                                cliente_pedido = c
-                                break   
 
                         lista_codigo_maquina = []
                         for d in sistema.lista_maquina:
@@ -203,14 +210,9 @@ while Encendido == True:
 
                         elijo_maquina = int(input("Ingrese el código de la máquina: "))
 
-                        for d in sistema.lista_maquina:
-                            if d.codigo == elijo_maquina:
-                                maquina_pedido = d
-                                break
+                        pedido_realizado = sistema.registrar_pedido(elijo_cliente, elijo_maquina)
 
-                        pedido_realizado = sistema.registrar_pedido(cliente_pedido, maquina_pedido)
-
-                        for requerimiento in maquina_pedido.requerimientos:
+                        for requerimiento in pedido_realizado.maquina.requerimientos:
                             if requerimiento.cantidad_requerida <= requerimiento.pieza.cantidad_stock:
                                 pedido_realizado.estado = "Entregado"
                                 pedido_realizado.fecha_entregado = pedido_realizado.fecha_realizado
@@ -219,9 +221,9 @@ while Encendido == True:
 
                         for c in sistema.lista_clientes:
                             if isinstance(c, ClienteParticular):
-                                costo_pedido = maquina_pedido.costo_produccion * 1.5
+                                costo_pedido = pedido_realizado.maquina.costo_produccion * 1.5
                             elif isinstance(c, Empresa):
-                                costo_pedido = (maquina_pedido.costo_produccion * 1.5) * 0.8
+                                costo_pedido = (pedido_realizado.maquina.costo_produccion * 1.5) * 0.8
 
                         pedido_realizado.precio_pedido = costo_pedido
 
@@ -250,16 +252,7 @@ while Encendido == True:
                         elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
                         cantidad_reposicion = int(input("Elija cuantos lotes desea reponer: "))
 
-                        for e in sistema.lista_pieza:
-                            if e.codigo == elijo_reposicion:
-                                pieza_elegida = e 
-                                e.cantidad_stock += cantidad_reposicion * e.lote
-                                break
-                        
-                        nueva_reposicion = sistema.registrar_reposicion(pieza_elegida, cantidad_reposicion)
-
-                        print("El costo en dolares de la reposicion es de: ", nueva_reposicion.costo_USD)
-                        print("La cantidad actualizada de", pieza_elegida.descripcion, "en stock es: ", pieza_elegida.cantidad_stock)
+                        nueva_reposicion = sistema.registrar_reposicion(elijo_reposicion, cantidad_reposicion)                        
 
                     #Después de la reposición verifica si hay disponibilidad para pedidos pendientes
                         for p in sistema.lista_pedido:
@@ -269,10 +262,15 @@ while Encendido == True:
                                     if i.cantidad_requerida > i.pieza.cantidad_stock:
                                         puede_entregarse = False
                                         break
+
                                 if puede_entregarse == True:       
                                     p.estado="Entregado"
                                     for r in p.maquina.requerimientos:
                                         r.pieza.cantidad_stock -= r.cantidad_requerida
+
+                        print("             ")
+                        print("El costo en dolares de la reposicion es de: ", nueva_reposicion.costo_USD)
+                        print("La cantidad actualizada de stock de", nueva_reposicion.pieza.descripcion, "es: ", nueva_reposicion.pieza.cantidad_stock)
                         break
 
                     except ExceptionPiezaNoExiste:
@@ -286,6 +284,7 @@ while Encendido == True:
 
             elif B == 6:
                 break
+                
 
             else:
                 print ("          ")
@@ -295,17 +294,23 @@ while Encendido == True:
     elif A == 2:
 
         while Listar == True:
-            print ("\nLISTAR")
-            print ("          ")
-            print ("    1. Cliente")
-            print ("    2. Pedidos")
-            print ("    3. Máquinas")
-            print ("    4. Piezas")
-            print ("    5. Contabilidad")
-            print ("    6. Salir")
-            print ("          ")
+            while True:
+                try:
+                    print ("\nLISTAR")
+                    print ("          ")
+                    print ("    1. Cliente")
+                    print ("    2. Pedidos")
+                    print ("    3. Máquinas")
+                    print ("    4. Piezas")
+                    print ("    5. Contabilidad")
+                    print ("    6. Salir")
+                    print ("          ")
 
-            C = int(input("Seleccione una opción: "))
+                    C = int(input("Seleccione una opción: "))
+                    break
+
+                except ValueError:
+                    print("Ingrese una de las opciones del menu")
 
             if C == 1:
 

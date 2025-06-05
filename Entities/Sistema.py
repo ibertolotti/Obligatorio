@@ -137,13 +137,22 @@ class Sistema:
         return self.lista_clientes
             
     def registrar_pedido(self, cliente, maquina):
+        
+        for c in self.lista_clientes:
+            if c.id == cliente:
+                cliente_pedido = c  
+
         encontrar_clientes = False
         for a in self.lista_clientes:
             if a.contador_id == cliente.contador_id:
                 encontrar_clientes = True
         if encontrar_clientes == False:
             raise ExceptionClienteNoExiste
-        
+
+        for d in self.lista_maquina:
+            if d.codigo == maquina:
+                maquina_pedido = d
+
         encontrar_maquina = False
         for a in self.lista_maquina:
             if a.codigo == maquina.codigo:
@@ -151,19 +160,20 @@ class Sistema:
         if encontrar_maquina == False:
             raise ExceptionMaquinaNoExiste
 
-        pedido = Pedido(cliente, maquina)
+        pedido = Pedido(cliente_pedido, maquina_pedido)
         self.lista_pedido.append(pedido)
         return pedido
     
     def registrar_reposicion(self, pieza, cantidad_lotes):
         encontrar_pieza = False
         for a in self.lista_pieza:
-            if a.codigo == pieza.codigo:
+            if a.codigo == pieza:
+                reposicion = Reposicion(a, cantidad_lotes)
                 encontrar_pieza = True
+
         if encontrar_pieza == False:
             raise ExceptionPiezaNoExiste
-        if not cantidad_lotes.isdigit():
-            raise ValueError
         
-        reposicion = Reposicion(pieza, cantidad_lotes)
+        reposicion.pieza.cantidad_stock += cantidad_lotes * reposicion.pieza.lote
+        
         return reposicion 
