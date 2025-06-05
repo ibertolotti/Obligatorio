@@ -219,29 +219,59 @@ while Encendido == True:
             elif B == 4:
                 while True:
                     try:
-                        #Lista auxiliar
+                        if sistema.lista_clientes == [] or sistema.lista_maquina ==[]:
+                            print("ERROR: no se pudo registrar el pedido")
+                            print("Debe registrar un cliente y/o una máquina antes de registrar un pedido ")
+                            Registrar = False 
+                            break
+
                         lista_id = []
 
                         for c in sistema.lista_clientes:
-                        #Isinstance para saber el id dependiendo si es particular o empres
+                        #Isinstance para saber el id dependiendo si es particular o empresa
                             if isinstance(c, ClienteParticular):
                                 lista_id.append((c.id, c.nombre_completo))
                             elif isinstance(c, Empresa):
                                 lista_id.append((c.id, c.nombre))
                         
+                        print("Lista de Clientes: ")
                         for a in lista_id:
                             print (a)
 
-                        elijo_cliente = int(input("Ingrese el id del cliente: "))
+                        while True:
+                            elijo_cliente = int(input("Ingrese el id del cliente: "))
+
+                            cliente_existe = False
+                            for a in sistema.lista_clientes:
+                                if elijo_cliente == a.id:
+                                    cliente_existe = True
+                            
+                            if cliente_existe == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de clientes")
 
                         lista_codigo_maquina = []
                         for d in sistema.lista_maquina:
                             lista_codigo_maquina.append((d.codigo, d.descripcion))
 
-                        print (lista_codigo_maquina)
+                        print("Lista de máquinas:")
+                        for a in lista_codigo_maquina:
+                            print (a)
 
-                        elijo_maquina = int(input("Ingrese el código de la máquina: "))
+                        while True:
+                            elijo_maquina = int(input("Ingrese el código de la máquina: "))
 
+                            maquina_existe = False
+                            for a in sistema.lista_maquina:
+                                if elijo_cliente == a.codigo:
+                                    maquina_existe = True
+                            
+                            if maquina_existe == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de máquinas")
+                        
                         pedido_realizado = sistema.registrar_pedido(elijo_cliente, elijo_maquina)
 
                         for requerimiento in pedido_realizado.maquina.requerimientos:
@@ -264,6 +294,8 @@ while Encendido == True:
                                 for j in pedido_realizado.maquina.requerimientos:
                                     if j.pieza.codigo ==  p.codigo:
                                         p.cantidad_stock = p.cantidad_stock - j.cantidad_requerida
+
+                        print("\nSe ha registrado el pedido con éxito")
                         break
                     
                     except ExceptionClienteNoExiste:
@@ -272,8 +304,6 @@ while Encendido == True:
                         print("\nLa máquina seleccionada no existe, intente nuevamente")
                     except ValueError:
                         print("\nInformacion invalida, revise los datos ingresados")
-
-                print("\nSe ha registrado el pedido con éxito")
 
                 Registrar = False
 
