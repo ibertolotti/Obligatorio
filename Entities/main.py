@@ -141,6 +141,8 @@ while Encendido == True:
                                 else:
                                     print("\nERROR: ingrese sí/no")
 
+                            print("Se ha registrado la maquina con éxito")
+
                         maquina_nueva.costo_produccion = maquina_nueva.costo()
                         print("Se ha registrado la maquina con éxito")
                         break
@@ -155,6 +157,7 @@ while Encendido == True:
             elif B == 3:
                 while True:
                     try:
+                        print("Tipo de cliente: ")
                         print ("1. Cliente Particular")
                         print ("2. Empresa")
                         print ("          ")
@@ -310,10 +313,24 @@ while Encendido == True:
             elif B == 5:
                 while True:
                     try:
+                        print("Lista de piezas: (código/descripcion/lote)")
                         for p in sistema.lista_pieza:
                             print(p.codigo, p.descripcion, "El tamaño del lote es: ", p.lote)
 
-                        elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
+                        while True:
+                            elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
+
+                            existencia = False
+                            for a in sistema.lista_pieza:
+                                if elijo_reposicion == a.codigo:
+                                    existencia = True
+                            
+                            if existencia == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de piezas")
+                        
+                        
                         cantidad_reposicion = int(input("Elija cuantos lotes desea reponer: "))
 
                         nueva_reposicion = sistema.registrar_reposicion(elijo_reposicion, cantidad_reposicion)                        
