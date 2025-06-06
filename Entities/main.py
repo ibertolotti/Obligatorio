@@ -67,19 +67,50 @@ while Encendido == True:
             if B == 1:
                 while True:
                     try:
-                        descripcion = input("Ingrese la descripción de la pieza: ")
-                        costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
-                        lote = int(input("Ingrese el tamaño del lote: "))
-                        cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
+                        while True:
+                            descripcion = input("Ingrese la descripción de la pieza: ")
+
+                            if descripcion != "":
+                                break
+                            else:
+                                print("\nDescripción inválida\n")
+
+                        while True:
+                            try:
+                                costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+
+                        while True:
+                            try:
+                                lote = int(input("Ingrese el tamaño del lote: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+
+                        while True:
+                            try:
+                                cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+                        
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
 
-                    except ValueError:
-                        print("\nEste valor es inválido\n")
+                    # except ValueError:
+                    #     print("\nEste valor es inválido\n")
                     except ExceptionPiezaYaExiste:
                         print("\nLa pieza ya existe, ingrese una nueva descripción\n")
-                    except ExceptionTipoDeDato:
-                        print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+                    # except ExceptionTipoDeDato:
+                    #     print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
 
                 print("\nSe ha registrado la pieza con éxito")
 
@@ -98,7 +129,14 @@ while Encendido == True:
                         for p in sistema.lista_pieza:
                             lista_piezas_auxiliar.append(p)
 
-                        descripcion = input("Ingrese la descripción de la máquina: ")
+                        while True:
+                            descripcion = input("Ingrese la descripción de la máquina: ")
+
+                            if descripcion != "":
+                                break
+                            else:
+                                print("\nDescripción inválida\n")
+
                         requisito = "si"
                         
                         maquina_nueva = sistema.registrar_maquina(descripcion)
@@ -116,7 +154,12 @@ while Encendido == True:
                                 print(p.codigo, p.descripcion)
                             
                             while True:
-                                elijo_pieza = int(input("\nElija una pieza como requisito de la máquina (ingrese el código): "))
+                                while True:
+                                    try:
+                                        elijo_pieza = int(input("\nElija una pieza como requisito de la máquina (ingrese el código): "))
+                                        break
+                                    except ValueError:
+                                        print("\nEste valor es inválido")
                                 
                                 pieza_existe = False
                                 for a in lista_piezas_auxiliar:
@@ -145,6 +188,9 @@ while Encendido == True:
                             print("\nSe ha registrado la maquina con éxito")
 
                         maquina_nueva.costo_produccion = maquina_nueva.costo()
+
+                        maquina_nueva.cambiar_disponibilidad()
+
                         break
 
                     except ValueError:
@@ -176,23 +222,53 @@ while Encendido == True:
                 if opcion == 1:
                     while True:
                         try:
-                            telefono = input("Ingrese su número de teléfono: ")
-                            correo = input("Ingrese su correo electrónico: ")
-                            cedula = input("Ingrese su cédula (sin guión): ")
-                            nombre_completo = input("Ingrese su nombre completo: ")
+                            while True:
+                                try:
+                                    telefono = input("Ingrese su número de teléfono: ")
+                                    break
+                                except ExceptionTelefono:
+                                    print("\nEste número de teléfono es inválido\n")
+                                except ValueError:
+                                    print("\nInformación inválida, revise los datos ingresados\n")
+
+                            while True:
+                                try:  
+                                    correo = input("Ingrese su correo electrónico: ")
+                                    break
+                                except ExceptionCorreoArroba:
+                                    print("\nEl correo ingresado es inválido\n")
+                                
+                            while True:
+                                try:
+                                    cedula = input("Ingrese su cédula (sin guión): ")
+                                    break
+                                except ExceptionTipoDeDato:
+                                    print("\nLa cédula ingresada es inválida\n")
+                                except ValueError:
+                                    print("\nInformación inválida, revise los datos ingresados\n")
+
+                            while True:
+                                nombre_completo = input("Ingrese su nombre completo: ")
+
+                                if nombre_completo != "":
+                                    break
+                                else:
+                                    print("\nDescripción inválida\n")
+                                    break
+
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
 
-                        except ExceptionTelefono:
-                            print("\nEste número de teléfono es inválido\n")
+                        # except ExceptionTelefono:
+                        #     print("\nEste número de teléfono es inválido\n")
                         except ExceptionClienteYaExiste:
                             print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
-                        except ExceptionTipoDeDato:
-                            print("\nLa cédula ingresada es inválida\n")
-                        except ValueError:
-                            print("\nInformación inválida, revise los datos ingresados\n")
-                        except ExceptionCorreoArroba:
-                            print("\nEl correo ingresado es inválido\n")
+                        # except ExceptionTipoDeDato:
+                        #     print("\nLa cédula ingresada es inválida\n")
+                        # except ValueError:
+                        #     print("\nInformación inválida, revise los datos ingresados\n")
+                        # except ExceptionCorreoArroba:
+                        #     print("\nEl correo ingresado es inválido\n")
 
                 elif opcion == 2:
                     while True:
@@ -354,7 +430,11 @@ while Encendido == True:
                                 if puede_entregarse == True:       
                                     p.estado="Entregado"
                                     for r in p.maquina.requerimientos:
-                                        r.pieza.cantidad_stock -= r.cantidad_requerida                        
+                                        r.pieza.cantidad_stock -= r.cantidad_requerida     
+                        
+                        for m in sistema.lista_maquina:
+                            m.cambiar_disponibilidad()
+
                         break
 
                     except ExceptionPiezaNoExiste:
@@ -477,8 +557,10 @@ while Encendido == True:
                     print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
 
                     for a in sistema.lista_maquina:
-                        if
-                        print(a.codigo, a.descripcion, a.costo_produccion, a.disponibilidad)
+                        if a.disponibilidad == True:
+                            print(a.codigo, a.descripcion, a.costo_produccion, "Disponible")
+                        elif a.disponibilidad == False:
+                            print(a.codigo, a.descripcion, a.costo_produccion, "No disponible")
                 
                 Listar = False
 

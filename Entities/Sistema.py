@@ -80,9 +80,6 @@ class Sistema:
                 raise ExceptionMaquinaYaExiste
             
         maquina = Maquina(descripcion)
-        for req in maquina.requerimientos:
-            if req.pieza.cantidad_stock >= req.cantidad_requerida:
-                maquina.disponibilidad = True
         
         self.lista_maquina.append(maquina)
         return maquina
@@ -95,10 +92,8 @@ class Sistema:
                 
         if not telefono.isdigit():
             raise ValueError
-        
         if len(telefono)!= 9: 
             raise ExceptionTelefono
-        
         if not telefono.startswith("09"): 
             raise ExceptionTelefono
 

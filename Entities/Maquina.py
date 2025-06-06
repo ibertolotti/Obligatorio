@@ -34,3 +34,9 @@ class Maquina:
             total = total + requerimiento.pieza.costo_USD * requerimiento.cantidad_requerida 
             self.costo_produccion = total
         return self.costo_produccion
+    
+    def cambiar_disponibilidad(self):
+        for r in self.requerimientos:
+            if r.pieza.cantidad_stock >= r.cantidad_requerida:
+                self.disponibilidad = True
+        return self.disponibilidad  
