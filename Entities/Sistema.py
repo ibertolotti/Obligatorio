@@ -99,23 +99,9 @@ class Sistema:
             if c.id == cliente:
                 cliente_pedido = c  
 
-        encontrar_clientes = False
-        for a in self.lista_clientes:
-            if a.contador_id == cliente:
-                encontrar_clientes = True
-        if encontrar_clientes == False:
-            raise ExceptionClienteNoExiste
-
         for d in self.lista_maquina:
             if d.codigo == maquina:
                 maquina_pedido = d
-
-        encontrar_maquina = False
-        for a in self.lista_maquina:
-            if a.codigo == maquina:
-                encontrar_maquina = True
-        if encontrar_maquina == False:
-            raise ExceptionMaquinaNoExiste
 
         pedido = Pedido(cliente_pedido, maquina_pedido)
         self.lista_pedido.append(pedido)
