@@ -72,7 +72,7 @@ class Sistema:
 
         pieza = Pieza(descripcion, costo_USD, lote, cantidad_stock)
         self.lista_pieza.append(pieza)
-        return self.lista_pieza
+        return pieza
 
     def registrar_maquina(self, descripcion):
         for a in self.lista_maquina:
@@ -87,12 +87,12 @@ class Sistema:
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
-        return self.lista_clientes
+        return cliente_particular
     
     def registrar_empresa(self, telefono, correo, rut, nombre, web):
         cliente_empresa = Empresa(telefono, correo, rut, nombre, web)
         self.lista_clientes.append(cliente_empresa)
-        return self.lista_clientes
+        return cliente_empresa
             
     def registrar_pedido(self, cliente, maquina):
         for c in self.lista_clientes:

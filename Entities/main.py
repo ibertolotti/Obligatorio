@@ -568,49 +568,75 @@ while Encendido == True:
                             print("\nNo se han realizado pedidos")
                             bucle = False
                             break
+                        
+                        while True:
+                            try:
+                                filtrar = input("\n¿Desea filtrar los pedidos por estado de entrega? (Si/No): ").strip().lower()
 
-                        filtrar = input("¿Desea filtrar los pedidos por estado de entrega? (Si/No): ").strip().lower()
-
+                                if filtrar == "si" or filtrar=="sí" or filtrar =="no":
+                                    pass
+                                else:
+                                    raise ExceptionTipoDeDato
+                                break
+                            except ExceptionTipoDeDato:
+                                    print("\nDato invalido, ingrese si/no")
+                                    
+                                    
                         if filtrar == "si" or filtrar=="sí":
                             print("1.Pendientes")
                             print("2.Entregados")
-                            estado = int(input("Seleccione una opcion: "))
-                            bucle = False
+                            while True:
+                                try:
+                                    estado = int(input("\nSeleccione una opcion: "))
+                                    bucle = False
+
+                                    if estado != 1 and estado != 2:
+                                        raise ExceptionTipoDeDato
+                                    
+                                    break
+                                
+                                except ValueError:
+                                    print("ERROR: ingrese una opción válida")
+                                except ExceptionTipoDeDato:
+                                    print("\nElija el estado del pedido (1 o 2)")
 
                             if estado == 1:
+                                print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "PRECIO PEDIDO")
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Pendiente":
                                         if isinstance (a, ClienteParticular):
-                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
                                             print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
-                                        if isinstance (a, Empresa):
-                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                        elif isinstance (a, Empresa):
                                             print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
-                                        
-                            else:
+                                bucle = False
+
+                            elif estado == 2:
+                                print("\nLISTA DE PEDIDOS ENTREGADOS:")
+                                print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "FECHA ENTREGADO -", "PRECIO PEDIDO")
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Entregado":
-                                        print("\nLISTA DE PEDIDOS ENTREGADOS:")
-                                        print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                        if isinstance (a, ClienteParticular):
+                                            print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                        elif isinstance (a, Empresa):
+                                            print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado,a.precio_pedido)
+                                bucle = False
 
-                        elif filtrar == "no" or filtrar == "NO" or filtrar == "No":
+                        elif filtrar == "no":
                             print("\nLISTA DE PEDIDOS:")
-                            bucle = False
-
+                            print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "FECHA ENTREGADO -", "PRECIO PEDIDO")
                             for a in sistema.lista_pedido:
                                 if a.estado == "Pendiente":
                                     if isinstance(a.cliente, ClienteParticular):
-                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, "-",a.precio_pedido)
                                     elif isinstance(a.cliente, Empresa):
-                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, "-",a.precio_pedido)
                                 elif a.estado == "Entregado":
                                     if isinstance(a.cliente, ClienteParticular):
                                         print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
                                     elif isinstance(a.cliente, Empresa):
                                         print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
-                        else:
-                            print("Ingrese una opción válida\n")
-                            bucle = True
+                            bucle = False
 
                     except ValueError:
                         print("ERROR: ingrese una opción válida")
