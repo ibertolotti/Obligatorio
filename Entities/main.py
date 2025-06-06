@@ -224,67 +224,63 @@ while Encendido == True:
                 if opcion == 1:
                     while True:
                         try:
-                            while True:
-                                try:
-                                    telefono = input("\nIngrese su número de teléfono: ")
-                                    if not telefono.isdigit():
-                                        raise ValueError
-                                    if len(telefono)!= 9: 
-                                        raise ExceptionTelefono()
-                                    if not telefono.startswith("09"): 
-                                        raise ExceptionTelefono()
-                                    break
-                                
-                                except ExceptionTelefono:
-                                    print("\nEste número de teléfono es inválido")
-                                except ValueError:
-                                    print("\nInformación inválida, revise los datos ingresados")
-
-                            while True:
-                                try:  
-                                    correo = input("Ingrese su correo electrónico: ")
-                                    if "@" not in correo:
-                                        raise ExceptionCorreoArroba()
-                                    break
-                                
-                                except ExceptionCorreoArroba:
-                                    print("\nEl correo ingresado es inválido\n")
-                                
-                            while True:
-                                try:
-                                    cedula = input("Ingrese su cédula (sin guión): ")
-                                    for c in sistema.lista_clientes:
-                                        if isinstance (c, ClienteParticular):
-                                            if c.cedula==cedula:
-                                                raise ExceptionClienteYaExiste()
-                                                                
-                                    if len(cedula)!= 8:
-                                        raise ExceptionTipoDeDato()
-                                    
-                                    if not str(cedula).isdigit():
-                                        raise ValueError()
-                                    break
-                                
-                                except ExceptionClienteYaExiste:
-                                    print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
-                                except ExceptionTipoDeDato:
-                                    print("\nLa cédula ingresada es inválida\n")
-                                except ValueError:
-                                    print("\nInformación inválida, revise los datos ingresados\n")
-
-                            while True:
-                                nombre_completo = input("Ingrese su nombre completo: ")
-
-                                if nombre_completo != "":
-                                    break
-                                else:
-                                    print("\nDescripción inválida\n")
-
-                            sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
+                            telefono = input("\nIngrese su número de teléfono: ")
+                            if not telefono.isdigit():
+                                raise ValueError
+                            if len(telefono)!= 9: 
+                                raise ExceptionTelefono()
+                            if not telefono.startswith("09"): 
+                                raise ExceptionTelefono()
                             break
+                        
+                        except ExceptionTelefono:
+                            print("\nEste número de teléfono es inválido")
+                        except ValueError:
+                            print("\nInformación inválida, revise los datos ingresados")
 
+                    while True:
+                        try:  
+                            correo = input("Ingrese su correo electrónico: ")
+                            if "@" not in correo:
+                                raise ExceptionCorreoArroba()
+                            break
+                        
+                        except ExceptionCorreoArroba:
+                            print("\nEl correo ingresado es inválido\n")
+                        
+                    while True:
+                        try:
+                            cedula = input("Ingrese su cédula (sin guión): ")
+                            for c in sistema.lista_clientes:
+                                if isinstance (c, ClienteParticular):
+                                    if c.cedula==cedula:
+                                        raise ExceptionClienteYaExiste()
+                                                        
+                            if len(cedula)!= 8:
+                                raise ExceptionTipoDeDato()
+                            
+                            if not str(cedula).isdigit():
+                                raise ValueError()
+                            break
+                        
+                        except ExceptionClienteYaExiste:
+                            print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
+                        except ExceptionTipoDeDato:
+                            print("\nLa cédula ingresada es inválida\n")
                         except ValueError:
                             print("\nInformación inválida, revise los datos ingresados\n")
+
+                    while True:
+                        nombre_completo = input("Ingrese su nombre completo: ")
+
+                        if nombre_completo != "":
+                            break
+                        else:
+                            print("\nDescripción inválida\n")
+
+                    sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
+                    print("\nSe ha registrado el cliente con éxito")
+                    break
 
                 elif opcion == 2:
                     while True:
@@ -381,17 +377,28 @@ while Encendido == True:
                             print (a)
 
                         while True:
-                            elijo_cliente = int(input("Ingrese el id del cliente: "))
+                            try:
+                                elijo_cliente = int(input("Ingrese el id del cliente: "))
 
-                            cliente_existe = False
-                            for a in sistema.lista_clientes:
-                                if elijo_cliente == a.id:
-                                    cliente_existe = True
-                            
-                            if cliente_existe == True:
-                                break
-                            else:
-                                print("\nERROR: ingrese un código de la lista de clientes")
+                                cliente_existe = False
+                                for a in sistema.lista_clientes:
+                                    if elijo_cliente == a.id:
+                                        cliente_existe = True
+                                
+                                if cliente_existe == True:
+                                    break
+                                else:
+                                    print("\nERROR: ingrese un código de la lista de clientes")
+
+                                encontrar_clientes = False
+                                for a in sistema.lista_clientes:
+                                    if a.contador_id == elijo_cliente:
+                                        encontrar_clientes = True
+                                if encontrar_clientes == False:
+                                    raise ExceptionClienteNoExiste
+
+                            except ExceptionClienteNoExiste:
+                                print("\nEl cliente seleccionado no existe, intente nuevamente\n")
 
                         lista_codigo_maquina = []
                         for d in sistema.lista_maquina:
@@ -402,17 +409,28 @@ while Encendido == True:
                             print (a)
 
                         while True:
-                            elijo_maquina = int(input("Ingrese el código de la máquina: "))
+                            try:
+                                elijo_maquina = int(input("Ingrese el código de la máquina: "))
 
-                            maquina_existe = False
-                            for a in sistema.lista_maquina:
-                                if elijo_cliente == a.codigo:
-                                    maquina_existe = True
+                                maquina_existe = False
+                                for a in sistema.lista_maquina:
+                                    if elijo_cliente == a.codigo:
+                                        maquina_existe = True
+                                
+                                if maquina_existe == True:
+                                    break
+                                else:
+                                    print("\nERROR: ingrese un código de la lista de máquinas")
+
+                                encontrar_maquina = False
+                                for a in sistema.lista_maquina:
+                                    if a.codigo == elijo_maquina:
+                                        encontrar_maquina = True
+                                if encontrar_maquina == False:
+                                    raise ExceptionMaquinaNoExiste 
                             
-                            if maquina_existe == True:
-                                break
-                            else:
-                                print("\nERROR: ingrese un código de la lista de máquinas")
+                            except ExceptionMaquinaNoExiste:
+                                print("\nLa máquina seleccionada no existe, intente nuevamente\n")   
                         
                         pedido_realizado = sistema.registrar_pedido(elijo_cliente, elijo_maquina)
 
@@ -439,11 +457,7 @@ while Encendido == True:
 
                         print("\nSe ha registrado el pedido con éxito")
                         break
-                    
-                    except ExceptionClienteNoExiste:
-                        print("\nEl cliente seleccionado no existe, intente nuevamente\n")
-                    except ExceptionMaquinaNoExiste:
-                        print("\nLa máquina seleccionada no existe, intente nuevamente\n")
+
                     except ValueError:
                         print("\nInformacion invalida, revise los datos ingresados\n")
 
@@ -543,6 +557,7 @@ while Encendido == True:
 
                 else:
                     print("\nLISTA CLIENTES: ")
+                    print("TIPO -", "TELEFONO -", "CORREO -", "CEDULA/RUT -", "NOMBRE -", "WEB")
                     for a in sistema.lista_clientes:
                         if isinstance(a, ClienteParticular):
                             tipo = "Cliente Particular"
