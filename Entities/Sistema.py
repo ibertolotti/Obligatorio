@@ -80,34 +80,25 @@ class Sistema:
                 raise ExceptionMaquinaYaExiste
             
         maquina = Maquina(descripcion)
-        for req in maquina.requerimientos:
-            if req.pieza.cantidad_stock >= req.cantidad_requerida:
-                maquina.disponibilidad = True
         
         self.lista_maquina.append(maquina)
         return maquina
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
+        
         for c in self.lista_clientes:
             if isinstance (c, ClienteParticular):
                 if c.cedula==cedula:
-                    raise ExceptionClienteYaExiste
-                
-        if not telefono.isdigit():
-            raise ValueError
-        if len(telefono)!= 9: 
-            raise ExceptionTelefono
-        if not telefono.startswith("09"): 
-            raise ExceptionTelefono
+                    raise ExceptionClienteYaExiste()
 
         if len(cedula)!= 8:
-            raise ExceptionTipoDeDato
-        if not cedula.isdigit():
-            raise ValueError
+            raise ExceptionTipoDeDato()
+        
+        if not str(cedula).isdigit():
+            raise ValueError()
 
         if "@" not in correo:
-            raise ExceptionCorreoArroba
-        
+            raise ExceptionCorreoArroba()
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
@@ -118,14 +109,19 @@ class Sistema:
             if isinstance(e, Empresa):
                 if e.rut==rut:
                     raise ExceptionClienteYaExiste
-                
-        if len(telefono) != 8 and len(telefono)!=9 :
-            raise ExceptionTelefono
+        
         if not telefono.isdigit():
             raise ValueError
         
+        if len(telefono)!=9 :
+            raise ExceptionTelefono
+        
+        if not telefono.startswith("09"): 
+            raise ExceptionTelefono
+        
         if len(rut) != 12:
             raise ExceptionTipoDeDato
+        
         if not rut.isdigit():
             raise ValueError 
         
@@ -137,14 +133,13 @@ class Sistema:
         return self.lista_clientes
             
     def registrar_pedido(self, cliente, maquina):
-        
         for c in self.lista_clientes:
             if c.id == cliente:
                 cliente_pedido = c  
 
         encontrar_clientes = False
         for a in self.lista_clientes:
-            if a.contador_id == cliente.contador_id:
+            if a.contador_id == cliente:
                 encontrar_clientes = True
         if encontrar_clientes == False:
             raise ExceptionClienteNoExiste
@@ -155,7 +150,7 @@ class Sistema:
 
         encontrar_maquina = False
         for a in self.lista_maquina:
-            if a.codigo == maquina.codigo:
+            if a.codigo == maquina:
                 encontrar_maquina = True
         if encontrar_maquina == False:
             raise ExceptionMaquinaNoExiste

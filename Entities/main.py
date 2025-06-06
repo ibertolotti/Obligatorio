@@ -26,10 +26,10 @@ Listar = True
 while Encendido == True:
     Registrar = True 
     Listar = True
+
     while True:
         try:
-            print("       ")
-            print("MENÚ")
+            print("\nMENÚ")
             print("          ")
             print ("1. Registrar")
             print ("2. Listar")
@@ -40,7 +40,7 @@ while Encendido == True:
             break
 
         except ValueError:
-            print("Ingrese una de las opciones del menu")
+            print("ERROR: ingrese una de las opciones del menú")
 
     if A == 1:
 
@@ -62,68 +62,150 @@ while Encendido == True:
                     break
 
                 except ValueError:
-                    print("Ingrese una de las opciones del menu")
+                    print("ERROR: ingrese una de las opciones del menú")
 
             if B == 1:
                 while True:
                     try:
-                        descripcion = input("Ingrese la descripción de la pieza: ")
-                        costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
-                        lote = int(input("Ingrese el tamaño del lote: "))
-                        cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
+                        while True:
+                            descripcion = input("Ingrese la descripción de la pieza: ")
+
+                            if descripcion != "":
+                                break
+                            else:
+                                print("\nDescripción inválida\n")
+
+                        while True:
+                            try:
+                                costo_USD = float(input("Ingrese el costo de la pieza en dólares: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+
+                        while True:
+                            try:
+                                lote = int(input("Ingrese el tamaño del lote: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+
+                        while True:
+                            try:
+                                cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
+                                break
+                            except ValueError:
+                                print("\nVerifique que el dato ingresado sea numérico\n")
+                            except ExceptionTipoDeDato:
+                                print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
+                        
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
-                    except ValueError:
-                        print("Este valor es inválido\n")
-                    except ExceptionPiezaYaExiste:
-                        print("La pieza ya existe, ingrese una nueva descripción\n")
-                    except ExceptionTipoDeDato:
-                        print("Ha sido ingresado un dato inválido, intente nuevamente\n")
 
-                print("Se ha registrado la pieza con éxito")
+                    except ExceptionPiezaYaExiste:
+                        print("\nLa pieza ya existe, ingrese una nueva descripción\n")
+
+                print("\nSe ha registrado la pieza con éxito")
 
                 Registrar = False
 
             elif B == 2:
                 while True:
                     try:
-                        descripcion = input("Ingrese la descripción de la máquina: ")
-                        requisito = input("¿Desea ingresar un requisito de pieza? (Si/No) ")
+                        if sistema.lista_pieza == []:
+                            print("\nERROR al crear la máquina")
+                            print("Debe registrar piezas antes de registrar una máquina")
+                            Registrar = False
+                            break
 
-                        maquina_nueva = sistema.registrar_maquina(descripcion)
-                        
                         lista_piezas_auxiliar = []
                         for p in sistema.lista_pieza:
                             lista_piezas_auxiliar.append(p)
 
-                        while requisito == "Si" or requisito == "si" or requisito == "SI":
+                        while True:
+                            descripcion = input("Ingrese la descripción de la máquina: ")
+
+                            if descripcion != "":
+                                break
+                            else:
+                                print("\nDescripción inválida\n")
+
+                        requisito = "si"
+                        
+                        maquina_nueva = sistema.registrar_maquina(descripcion)
+
+                        while requisito == "si" or requisito == "sí":
+                            if lista_piezas_auxiliar == []:
+                                print("\nERROR al crear la maquina")
+                                print("Debe registrar más piezas antes de agregar nuevos requerimientos")
+                                sistema.lista_maquina.remove(maquina_nueva)
+                                Registrar = False
+                                break
+
+                            print("\nPiezas:")
                             for p in lista_piezas_auxiliar:
                                 print(p.codigo, p.descripcion)
-                            elijo_pieza = int(input("Elija una pieza como requisito de la máquina (ingrese el código): "))
+                            
+                            while True:
+                                while True:
+                                    try:
+                                        elijo_pieza = int(input("\nElija una pieza como requisito de la máquina (ingrese el código): "))
+                                        break
+                                    except ValueError:
+                                        print("\nERROR: Ingrese el codigo de una pieza de la lista")
+                                
+                                pieza_existe = False
+                                for a in lista_piezas_auxiliar:
+                                    if elijo_pieza == a.codigo:
+                                        pieza_existe = True
+                                
+                                if pieza_existe == True:
+                                    break
+                                else:
+                                    print("\nERROR: ingrese un código de la lista de piezas")
                             
                             for pieza in lista_piezas_auxiliar:
                                 if elijo_pieza == pieza.codigo:
-                                    cantidad = int(input("Ingrese la cantidad de la pieza requerida: "))
+                                    while True:
+                                        try:
+                                            cantidad = int(input("\nIngrese la cantidad de la pieza requerida: "))
+                                            break
+                                        except ValueError:
+                                            print("\nEste valor es inválido")
+
                                     maquina_nueva.agregar_requerimiento(pieza, cantidad)
                                     lista_piezas_auxiliar.remove(pieza)
+                            
+                            while True:
+                                requisito = input("\n¿Desea ingresar otro requisito? (si/no): ").strip().lower() #strip saca los espacios al principio o final y lower hace todo minuscula
 
-                            requisito = input("¿Desea ingresar un nuevo requisito de pieza? (Si/No): ")
+                                if requisito == "si" or requisito == "sí" or requisito == "no":
+                                    break
+                                else:
+                                    print("\nERROR: ingrese sí/no")
+
+                            print("\nSe ha registrado la maquina con éxito")
 
                         maquina_nueva.costo_produccion = maquina_nueva.costo()
+
+                        maquina_nueva.cambiar_disponibilidad()
+
                         break
 
                     except ValueError:
-                        print("Este valor es inválido\n")
+                        print("\nEste valor es inválido")
                     except ExceptionMaquinaYaExiste:
-                        print("La máquina ya existe, ingrese una nueva descripción\n")
-
-                print("Se ha registrado la maquina con éxito")
+                        print("\nLa máquina ya existe, ingrese una nueva descripción\n")
 
                 Registrar = False
 
             elif B == 3:
                 while True:
                     try:
+                        print("Tipo de cliente: ")
                         print ("1. Cliente Particular")
                         print ("2. Empresa")
                         print ("          ")
@@ -131,34 +213,78 @@ while Encendido == True:
                         opcion = int(input("Seleccione una opción: "))
 
                         if opcion != 1 and opcion != 2:
-                            print("Elija una opción válida\n")
+                            print("\nElija una opción válida\n")
                         
                         else:
                             break
 
                     except ValueError:
-                        print("Este dato es inválido\n")
+                        print("\nEste dato es inválido\n")
 
                 if opcion == 1:
                     while True:
                         try:
-                            telefono = input("Ingrese su número de celular: ")
-                            correo = input("Ingrese su correo electrónico: ")
-                            cedula = input("Ingrese su cédula (sin guión): ")
-                            nombre_completo = input("Ingrese su nombre completo: ")
+                            while True:
+                                try:
+                                    telefono = input("\nIngrese su número de teléfono: ")
+                                    if not telefono.isdigit():
+                                        raise ValueError
+                                    if len(telefono)!= 9: 
+                                        raise ExceptionTelefono()
+                                    if not telefono.startswith("09"): 
+                                        raise ExceptionTelefono()
+                                    break
+                                
+                                except ExceptionTelefono:
+                                    print("\nEste número de teléfono es inválido")
+                                except ValueError:
+                                    print("\nInformación inválida, revise los datos ingresados")
+
+                            while True:
+                                try:  
+                                    correo = input("Ingrese su correo electrónico: ")
+                                    if "@" not in correo:
+                                        raise ExceptionCorreoArroba()
+                                    break
+                                
+                                except ExceptionCorreoArroba:
+                                    print("\nEl correo ingresado es inválido\n")
+                                
+                            while True:
+                                try:
+                                    cedula = input("Ingrese su cédula (sin guión): ")
+                                    for c in sistema.lista_clientes:
+                                        if isinstance (c, ClienteParticular):
+                                            if c.cedula==cedula:
+                                                raise ExceptionClienteYaExiste()
+                                                                
+                                    if len(cedula)!= 8:
+                                        raise ExceptionTipoDeDato()
+                                    
+                                    if not str(cedula).isdigit():
+                                        raise ValueError()
+                                    break
+                                
+                                except ExceptionClienteYaExiste:
+                                    print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
+                                except ExceptionTipoDeDato:
+                                    print("\nLa cédula ingresada es inválida\n")
+                                except ValueError:
+                                    print("\nInformación inválida, revise los datos ingresados\n")
+
+                            while True:
+                                nombre_completo = input("Ingrese su nombre completo: ")
+
+                                if nombre_completo != "":
+                                    break
+                                else:
+                                    print("\nDescripción inválida\n")
+
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
 
-                        except ExceptionTelefono:
-                            print("Este número de celular es inválido\n")
-                        except ExceptionClienteYaExiste:
-                            print("Este cliente ya existe, ingrese los datos nuevamente\n")
-                        except ExceptionTipoDeDato:
-                            print("La cédula ingresada es inválida\n")
                         except ValueError:
-                            print("Informacion invalida, revise los datos ingresados\n")
-                        except ExceptionCorreoArroba:
-                            print("El correo ingresado es inválido\n")
+                            print("\nInformación inválida, revise los datos ingresados\n")
 
                 elif opcion == 2:
                     while True:
@@ -173,43 +299,76 @@ while Encendido == True:
                             break
 
                         except ExceptionClienteYaExiste:
-                            print("Esta empresa ya existe, ingrese los datos nuevamente\n")
+                            print("\nEsta empresa ya existe, ingrese los datos nuevamente\n")
+                        except ExceptionTelefono:
+                            print("\nEste número de teléfono es inválido\n")
                         except ExceptionTipoDeDato:
-                            print("El rut ingresado es inválido\n")
+                            print("\nEl rut ingresado es inválido\n")
                         except ValueError:
-                            print("Informacion invalida, revise los datos ingresados\n")
+                            print("\nInformación inválida, revise los datos ingresados\n")
                         except ExceptionCorreoArroba:
-                            print("El correo ingresado es inválido\n")
+                            print("\nEl correo ingresado es inválido\n")
 
-                print("Se ha registrado el cliente con éxito")
+                print("\nSe ha registrado el cliente con éxito")
                 
                 Registrar = False
                         
             elif B == 4:
                 while True:
                     try:
-                        #Lista auxiliar
+                        if sistema.lista_clientes == [] or sistema.lista_maquina ==[]:
+                            print("ERROR: no se pudo registrar el pedido")
+                            print("Debe registrar un cliente y/o una máquina antes de registrar un pedido ")
+                            Registrar = False 
+                            break
+
                         lista_id = []
 
                         for c in sistema.lista_clientes:
-                        #Isinstance para saber el id dependiendo si es particular o empres
+                        #Isinstance para saber el id dependiendo si es particular o empresa
                             if isinstance(c, ClienteParticular):
                                 lista_id.append((c.id, c.nombre_completo))
                             elif isinstance(c, Empresa):
                                 lista_id.append((c.id, c.nombre))
+                        
+                        print("Lista de Clientes: ")
+                        for a in lista_id:
+                            print (a)
 
-                        print (lista_id)
+                        while True:
+                            elijo_cliente = int(input("Ingrese el id del cliente: "))
 
-                        elijo_cliente = int(input("Ingrese el id del cliente: "))
+                            cliente_existe = False
+                            for a in sistema.lista_clientes:
+                                if elijo_cliente == a.id:
+                                    cliente_existe = True
+                            
+                            if cliente_existe == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de clientes")
 
                         lista_codigo_maquina = []
                         for d in sistema.lista_maquina:
                             lista_codigo_maquina.append((d.codigo, d.descripcion))
 
-                        print (lista_codigo_maquina)
+                        print("Lista de máquinas:")
+                        for a in lista_codigo_maquina:
+                            print (a)
 
-                        elijo_maquina = int(input("Ingrese el código de la máquina: "))
+                        while True:
+                            elijo_maquina = int(input("Ingrese el código de la máquina: "))
 
+                            maquina_existe = False
+                            for a in sistema.lista_maquina:
+                                if elijo_cliente == a.codigo:
+                                    maquina_existe = True
+                            
+                            if maquina_existe == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de máquinas")
+                        
                         pedido_realizado = sistema.registrar_pedido(elijo_cliente, elijo_maquina)
 
                         for requerimiento in pedido_realizado.maquina.requerimientos:
@@ -232,24 +391,45 @@ while Encendido == True:
                                 for j in pedido_realizado.maquina.requerimientos:
                                     if j.pieza.codigo ==  p.codigo:
                                         p.cantidad_stock = p.cantidad_stock - j.cantidad_requerida
+
+                        print("\nSe ha registrado el pedido con éxito")
                         break
                     
                     except ExceptionClienteNoExiste:
-                        print("El cliente seleccionado no existe, intente nuevamente\n")
+                        print("\nEl cliente seleccionado no existe, intente nuevamente\n")
                     except ExceptionMaquinaNoExiste:
-                        print("La máquina seleccionada no existe, intente nuevamente\n")
-
-                print("Se ha registrado el pedido con éxito")
+                        print("\nLa máquina seleccionada no existe, intente nuevamente\n")
+                    except ValueError:
+                        print("\nInformacion invalida, revise los datos ingresados\n")
 
                 Registrar = False
 
             elif B == 5:
                 while True:
                     try:
-                        for p in sistema.lista_pieza:
-                            print(p.codigo, p.descripcion, "El tamaño del lote es: ", p.lote)
+                        if sistema.lista_pieza == []:
+                            print("\nNo hay piezas registradas")
+                            Registrar = False
+                            break
+                        else:
+                            print("Lista de piezas (código/descripcion/lote):")
+                            for p in sistema.lista_pieza:
+                                print(p.codigo,".", p.descripcion, ", el tamaño del lote es: ", p.lote)
 
-                        elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
+                        while True:
+                            elijo_reposicion = int(input("\nElija una pieza para reponer (ingrese el código): "))
+
+                            existencia = False
+                            for a in sistema.lista_pieza:
+                                if elijo_reposicion == a.codigo:
+                                    existencia = True
+                            
+                            if existencia == True:
+                                break
+                            else:
+                                print("\nERROR: ingrese un código de la lista de piezas\n")
+                        
+                        
                         cantidad_reposicion = int(input("Elija cuantos lotes desea reponer: "))
 
                         nueva_reposicion = sistema.registrar_reposicion(elijo_reposicion, cantidad_reposicion)                        
@@ -266,30 +446,29 @@ while Encendido == True:
                                 if puede_entregarse == True:       
                                     p.estado="Entregado"
                                     for r in p.maquina.requerimientos:
-                                        r.pieza.cantidad_stock -= r.cantidad_requerida
+                                        r.pieza.cantidad_stock -= r.cantidad_requerida     
+                        
+                        for m in sistema.lista_maquina:
+                            m.cambiar_disponibilidad()
 
-                        print("             ")
-                        print("El costo en dolares de la reposicion es de: ", nueva_reposicion.costo_USD)
-                        print("La cantidad actualizada de stock de", nueva_reposicion.pieza.descripcion, "es: ", nueva_reposicion.pieza.cantidad_stock)
                         break
 
                     except ExceptionPiezaNoExiste:
-                        print("La pieza seleccionada no existe, intente nuevamente\n")
+                        print("\nLa pieza seleccionada no existe, intente nuevamente\n")
                     except ValueError:
-                        print("Este dato es inválido\n")
+                        print("\nEste dato es inválido\n")
 
-                print("Se ha registrado la reposición con éxito")
+                print("\nSe ha registrado la reposición con éxito")
+                print("El costo en dolares de la reposicion es de (USD): ", nueva_reposicion.costo_USD)
+                print("La cantidad actualizada de stock de", nueva_reposicion.pieza.descripcion, "es: ", nueva_reposicion.pieza.cantidad_stock)
 
                 Registrar = False
 
             elif B == 6:
                 break
                 
-
             else:
-                print ("          ")
-                print("Esa opción no es válida")
-                print ("          ")
+                print("\nEsa opción no es válida\n")
     
     elif A == 2:
 
@@ -306,11 +485,11 @@ while Encendido == True:
                     print ("    6. Salir")
                     print ("          ")
 
-                    C = int(input("Seleccione una opción: "))
+                    C = int(input("\nSeleccione una opción: "))
                     break
 
                 except ValueError:
-                    print("Ingrese una de las opciones del menu")
+                    print("ERROR: ingrese una de las opciones del menu")
 
             if C == 1:
 
@@ -331,76 +510,97 @@ while Encendido == True:
 
             elif C == 2:
                 bucle = True
-
                 while bucle == True:
-                    filtrar = input("¿Desea filtrar los pedidos por estado de entrega? (Si/No): ")
+                    try:
+                        if sistema.lista_pedido == []:
+                            print("\nNo se han realizado pedidos")
+                            bucle = False
+                            break
 
-                    if filtrar == "si" or filtrar=="SI" or filtrar=="Si":
-                        print("1.Pendientes")
-                        print("2.Entregados")
-                        estado = int(input("Seleccione una opcion: "))
-                        bucle = False
+                        filtrar = input("¿Desea filtrar los pedidos por estado de entrega? (Si/No): ")
 
-                        if estado == 1:
+                        if filtrar == "si" or filtrar=="SI" or filtrar=="Si":
+                            print("1.Pendientes")
+                            print("2.Entregados")
+                            estado = int(input("Seleccione una opcion: "))
+                            bucle = False
+
+                            if estado == 1:
+                                for a in sistema.lista_pedido:
+                                    if a.estado == "Pendiente":
+                                        if isinstance (a, ClienteParticular):
+                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                            print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                        if isinstance (a, Empresa):
+                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                            print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                        
+                            else:
+                                for a in sistema.lista_pedido:
+                                    if a.estado == "Entregado":
+                                        print("\nLISTA DE PEDIDOS ENTREGADOS:")
+                                        print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+
+                        elif filtrar == "no" or filtrar == "NO" or filtrar == "No":
+                            print("\nLISTA DE PEDIDOS:")
+                            bucle = False
+
                             for a in sistema.lista_pedido:
                                 if a.estado == "Pendiente":
-                                    print("\n LISTA DE PEDIDOS PENDIENTES:")
-                                    print(a.cliente, a.maquina, a.fecha_realizado, a.precio_pedido)
-                                    
+                                    if isinstance(a.cliente, ClienteParticular):
+                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                    elif isinstance(a.cliente, Empresa):
+                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                elif a.estado == "Entregado":
+                                    if isinstance(a.cliente, ClienteParticular):
+                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                    elif isinstance(a.cliente, Empresa):
+                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
                         else:
-                            for a in sistema.lista_pedido:
-                                if a.estado == "Entregado":
-                                    print("\nLISTA DE PEDIDOS ENTREGADOS:")
-                                    print(a.cliente, a.maquina, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                            print("Ingrese una opción válida\n")
+                            bucle = True
 
-                    elif filtrar == "no" or filtrar == "NO" or filtrar == "No":
-                        print("\nLISTA DE PEDIDOS:")
-                        bucle = False
-
-                        for a in sistema.lista_pedido:
-                            if a.estado == "Pendiente":
-                                if isinstance(a.cliente, ClienteParticular):
-                                    print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
-                                elif isinstance(a.cliente, Empresa):
-                                    print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
-                            elif a.estado == "Entregado":
-                                if isinstance(a.cliente, ClienteParticular):
-                                    print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
-                                elif isinstance(a.cliente, Empresa):
-                                    print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
-                                
-                    else:
-                        print("Ingrese una opción válida\n")
-                        bucle = True
+                    except ValueError:
+                        print("ERROR: ingrese una opción válida")
 
                 Listar = False
 
             elif C == 3:   
-                print("\nLISTA MÁQUINAS")
-                print("CÓDIGO", "DESCRIPCIÓN", "REQUERIMIENTOS", "COSTO PRODUCCIÓN", "DISPONIBILIDAD")
+                if sistema.lista_maquina == []:
+                    print("No hay maquinas registradas")
+                else:
+                    print("\nLISTA MÁQUINAS")
+                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
 
-                for a in sistema.lista_maquina:
-                    print(a.codigo, a.descripcion, a.requerimientos, a.costo_produccion, a.disponibilidad)
+                    for a in sistema.lista_maquina:
+                        if a.disponibilidad == True:
+                            print(a.codigo, a.descripcion, a.costo_produccion, "Disponible")
+                        elif a.disponibilidad == False:
+                            print(a.codigo, a.descripcion, a.costo_produccion, "No disponible")
+                
                 Listar = False
 
             elif C == 4:
-                print("\nLISTA PIEZAS")
-                print("CÓDIGO", "DESCRIPCIÓN", "COSTO(USD)", "TAMAÑO DEL LOTE", "CANTIDAD DE STOCK DISPONIBLE", "CANTIDAD DE STOCK FALTANTE", "LOTES FALTANTES")
+                if sistema.lista_pieza == []:
+                    print("No se ha registrado ninguna pieza")
+                else:
+                    print("\nLISTA PIEZAS")
+                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO(USD) -", "TAMAÑO DEL LOTE -", "CANTIDAD DE STOCK DISPONIBLE -", "CANTIDAD DE STOCK FALTANTE -", "LOTES FALTANTES")
 
-                for a in sistema.lista_pieza:
-                    stock_faltante = 0
-                    lotes_faltantes = 0
-                    for p in sistema.lista_pedido:
-                        for r in p.maquina.requerimientos:
-                            if a.codigo == r.pieza.codigo:
-                                if p.estado == "Pendiente":
-                                    stock_faltante += r.cantidad_requerida
-                    if stock_faltante != 0:
-                        stock_faltante -= a.cantidad_stock
-                        lotes_faltantes = math.ceil(stock_faltante/a.lote)
-                        print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
-                    else:
-                        print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                    for a in sistema.lista_pieza:
+                        stock_faltante = 0
+                        lotes_faltantes = 0
+                        for p in sistema.lista_pedido:
+                            for r in p.maquina.requerimientos:
+                                if a.codigo == r.pieza.codigo:
+                                    if p.estado == "Pendiente":
+                                        stock_faltante += r.cantidad_requerida
+                        if stock_faltante != 0:
+                            stock_faltante -= a.cantidad_stock
+                            lotes_faltantes = math.ceil(stock_faltante/a.lote)
+                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                        else:
+                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
 
                 Listar = False
 
@@ -439,12 +639,14 @@ while Encendido == True:
                 print ("          ")
 
     elif A == 3:
+
         print ("          ")
         print("Ha salido del programa")
 
         Encendido = False
 
     else:
+        
         print ("          ")
         print("Esa opción no es válida")
         print ("          ")
