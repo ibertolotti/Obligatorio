@@ -289,26 +289,71 @@ while Encendido == True:
                 elif opcion == 2:
                     while True:
                         try:
-                            telefono = input("Ingrese su teléfono: ")
-                            correo = input("Ingrese su correo electrónico: ")
-                            rut = input("Ingrese su número de rut: ")
-                            nombre = input("Ingrese el nombre de su empresa: ")
-                            web = input("Ingrese su sitio web: ")
+                            telefono = input("\nIngrese su teléfono: ")
+                            if not telefono.isdigit():
+                                raise ValueError
+                                
+                            if len(telefono)!=9 :
+                                raise ExceptionTelefono
+                                
+                            if not telefono.startswith("09"): 
+                                raise ExceptionTelefono
+                            break
 
-                            sistema.registrar_empresa(telefono, correo, rut, nombre, web)
+                        except ExceptionTelefono:
+                            print("\nEste número de teléfono es inválido")
+                        except ValueError:
+                            print("\nInformación inválida, revise los datos ingresados")
+
+                    while True:   
+                        try:
+                            correo = input("\nIngrese su correo electrónico: ")
+                            if "@" not in correo:
+                                raise ExceptionCorreoArroba
+                            break
+                        
+                        except ExceptionCorreoArroba:
+                            print("\nEl correo ingresado es inválido")
+
+                    while True:
+                        try:
+                            rut = input("\nIngrese su número de rut: ")
+                            for e in sistema.lista_clientes:
+                                if isinstance(e, Empresa):
+                                    if e.rut==rut:
+                                        raise ExceptionClienteYaExiste
+                                                        
+                            if len(rut) != 12:
+                                raise ExceptionTipoDeDato
+                            
+                            if not rut.isdigit():
+                                raise ValueError 
                             break
 
                         except ExceptionClienteYaExiste:
-                            print("\nEsta empresa ya existe, ingrese los datos nuevamente\n")
-                        except ExceptionTelefono:
-                            print("\nEste número de teléfono es inválido\n")
+                            print("\nEsta empresa ya existe, ingrese los datos nuevamente")
                         except ExceptionTipoDeDato:
-                            print("\nEl rut ingresado es inválido\n")
+                            print("\nEl rut ingresado es inválido")
                         except ValueError:
-                            print("\nInformación inválida, revise los datos ingresados\n")
-                        except ExceptionCorreoArroba:
-                            print("\nEl correo ingresado es inválido\n")
+                            print("\nInformación inválida, revise los datos ingresados")
 
+                    while True:
+                            nombre = input("\nIngrese el nombre de su empresa: ")
+
+                            if nombre != "":
+                                break
+                            else:
+                                print("\nNombre inválido")
+
+                    while True:
+                            web = input("\nIngrese su sitio web: ")
+
+                            if web != "":
+                                break
+                            else:
+                                print("\nSitio Web inválido")
+                
+                sistema.registrar_empresa(telefono, correo, rut, nombre, web)
                 print("\nSe ha registrado el cliente con éxito")
                 
                 Registrar = False
