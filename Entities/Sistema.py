@@ -108,14 +108,9 @@ class Sistema:
         return pedido
     
     def registrar_reposicion(self, pieza, cantidad_lotes):
-        encontrar_pieza = False
         for a in self.lista_pieza:
             if a.codigo == pieza:
                 reposicion = Reposicion(a, cantidad_lotes)
-                encontrar_pieza = True
-
-        if encontrar_pieza == False:
-            raise ExceptionPiezaNoExiste
         
         reposicion.pieza.cantidad_stock += cantidad_lotes * reposicion.pieza.lote
         
