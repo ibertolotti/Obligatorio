@@ -105,12 +105,8 @@ while Encendido == True:
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
 
-                    # except ValueError:
-                    #     print("\nEste valor es inválido\n")
                     except ExceptionPiezaYaExiste:
                         print("\nLa pieza ya existe, ingrese una nueva descripción\n")
-                    # except ExceptionTipoDeDato:
-                    #     print("\nHa sido ingresado un dato inválido, intente nuevamente\n")
 
                 print("\nSe ha registrado la pieza con éxito")
 
@@ -159,7 +155,7 @@ while Encendido == True:
                                         elijo_pieza = int(input("\nElija una pieza como requisito de la máquina (ingrese el código): "))
                                         break
                                     except ValueError:
-                                        print("\nEste valor es inválido")
+                                        print("\nERROR: Ingrese el codigo de una pieza de la lista")
                                 
                                 pieza_existe = False
                                 for a in lista_piezas_auxiliar:
@@ -169,11 +165,17 @@ while Encendido == True:
                                 if pieza_existe == True:
                                     break
                                 else:
-                                    print("\nERROR: ingrese un código de la lista de piezas\n")
+                                    print("\nERROR: ingrese un código de la lista de piezas")
                             
                             for pieza in lista_piezas_auxiliar:
                                 if elijo_pieza == pieza.codigo:
-                                    cantidad = int(input("Ingrese la cantidad de la pieza requerida: "))
+                                    while True:
+                                        try:
+                                            cantidad = int(input("\nIngrese la cantidad de la pieza requerida: "))
+                                            break
+                                        except ValueError:
+                                            print("\nEste valor es inválido")
+
                                     maquina_nueva.agregar_requerimiento(pieza, cantidad)
                                     lista_piezas_auxiliar.remove(pieza)
                             
@@ -194,7 +196,7 @@ while Encendido == True:
                         break
 
                     except ValueError:
-                        print("\nEste valor es inválido\n")
+                        print("\nEste valor es inválido")
                     except ExceptionMaquinaYaExiste:
                         print("\nLa máquina ya existe, ingrese una nueva descripción\n")
 
@@ -224,10 +226,17 @@ while Encendido == True:
                         try:
                             while True:
                                 try:
-                                    telefono = input("Ingrese su número de teléfono: ")
+                                    telefono = input("\nIngrese su número de teléfono: ")
+                                    if not telefono.isdigit():
+                                        raise ValueError
+                                    if len(telefono)!= 9: 
+                                        raise ExceptionTelefono()
+                                    if not telefono.startswith("09"): 
+                                        raise ExceptionTelefono()
                                     break
+                                
                                 except ExceptionTelefono:
-                                    print("\nEste número de teléfono es inválido\n")
+                                    print("\nEste número de teléfono es inválido")
                                 except ValueError:
                                     print("\nInformación inválida, revise los datos ingresados\n")
 
@@ -235,6 +244,7 @@ while Encendido == True:
                                 try:  
                                     correo = input("Ingrese su correo electrónico: ")
                                     break
+                                
                                 except ExceptionCorreoArroba:
                                     print("\nEl correo ingresado es inválido\n")
                                 
@@ -242,6 +252,7 @@ while Encendido == True:
                                 try:
                                     cedula = input("Ingrese su cédula (sin guión): ")
                                     break
+                                
                                 except ExceptionTipoDeDato:
                                     print("\nLa cédula ingresada es inválida\n")
                                 except ValueError:
@@ -254,19 +265,17 @@ while Encendido == True:
                                     break
                                 else:
                                     print("\nDescripción inválida\n")
-                                    break
 
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
-
                         # except ExceptionTelefono:
                         #     print("\nEste número de teléfono es inválido\n")
                         except ExceptionClienteYaExiste:
                             print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
                         # except ExceptionTipoDeDato:
                         #     print("\nLa cédula ingresada es inválida\n")
-                        # except ValueError:
-                        #     print("\nInformación inválida, revise los datos ingresados\n")
+                        except ValueError:
+                            print("\nInformación inválida, revise los datos ingresados\n")
                         # except ExceptionCorreoArroba:
                         #     print("\nEl correo ingresado es inválido\n")
 

@@ -85,25 +85,20 @@ class Sistema:
         return maquina
     
     def registrar_cliente_particular(self, telefono, correo, cedula, nombre_completo):
+        
         for c in self.lista_clientes:
             if isinstance (c, ClienteParticular):
                 if c.cedula==cedula:
-                    raise ExceptionClienteYaExiste
-                
-        if not telefono.isdigit():
-            raise ValueError
-        if len(telefono)!= 9: 
-            raise ExceptionTelefono
-        if not telefono.startswith("09"): 
-            raise ExceptionTelefono
+                    raise ExceptionClienteYaExiste()
 
         if len(cedula)!= 8:
-            raise ExceptionTipoDeDato
-        if not cedula.isdigit():
-            raise ValueError
+            raise ExceptionTipoDeDato()
+        
+        if not str(cedula).isdigit():
+            raise ValueError()
 
         if "@" not in correo:
-            raise ExceptionCorreoArroba
+            raise ExceptionCorreoArroba()
         
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
