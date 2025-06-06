@@ -95,8 +95,10 @@ class Sistema:
                 
         if not telefono.isdigit():
             raise ValueError
+        
         if len(telefono)!= 9: 
             raise ExceptionTelefono
+        
         if not telefono.startswith("09"): 
             raise ExceptionTelefono
 
@@ -108,7 +110,6 @@ class Sistema:
         if "@" not in correo:
             raise ExceptionCorreoArroba
         
-        
         cliente_particular = ClienteParticular(telefono, correo, cedula, nombre_completo)
         self.lista_clientes.append(cliente_particular)
         return self.lista_clientes
@@ -118,14 +119,19 @@ class Sistema:
             if isinstance(e, Empresa):
                 if e.rut==rut:
                     raise ExceptionClienteYaExiste
-                
-        if len(telefono) != 8 and len(telefono)!=9 :
-            raise ExceptionTelefono
+        
         if not telefono.isdigit():
             raise ValueError
         
+        if len(telefono)!=9 :
+            raise ExceptionTelefono
+        
+        if not telefono.startswith("09"): 
+            raise ExceptionTelefono
+        
         if len(rut) != 12:
             raise ExceptionTipoDeDato
+        
         if not rut.isdigit():
             raise ValueError 
         
@@ -137,7 +143,6 @@ class Sistema:
         return self.lista_clientes
             
     def registrar_pedido(self, cliente, maquina):
-        
         for c in self.lista_clientes:
             if c.id == cliente:
                 cliente_pedido = c  

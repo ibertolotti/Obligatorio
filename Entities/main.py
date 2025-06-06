@@ -73,6 +73,7 @@ while Encendido == True:
                         cantidad_stock = int(input("Si se tiene, ingrese la cantidad de stock de la pieza: "))
                         sistema.registrar_pieza(descripcion, costo_USD, lote, cantidad_stock)
                         break
+
                     except ValueError:
                         print("\nEste valor es inválido\n")
                     except ExceptionPiezaYaExiste:
@@ -89,7 +90,7 @@ while Encendido == True:
                     try:
                         if sistema.lista_pieza == []:
                             print("\nERROR al crear la máquina")
-                            print("Debe registrar piezas antes de regstrar una máquina")
+                            print("Debe registrar piezas antes de registrar una máquina")
                             Registrar = False
                             break
 
@@ -144,7 +145,6 @@ while Encendido == True:
                             print("\nSe ha registrado la maquina con éxito")
 
                         maquina_nueva.costo_produccion = maquina_nueva.costo()
-                        print("\nSe ha registrado la maquina con éxito")
                         break
 
                     except ValueError:
@@ -176,7 +176,7 @@ while Encendido == True:
                 if opcion == 1:
                     while True:
                         try:
-                            telefono = input("Ingrese su número de celular: ")
+                            telefono = input("Ingrese su número de teléfono: ")
                             correo = input("Ingrese su correo electrónico: ")
                             cedula = input("Ingrese su cédula (sin guión): ")
                             nombre_completo = input("Ingrese su nombre completo: ")
@@ -184,7 +184,7 @@ while Encendido == True:
                             break
 
                         except ExceptionTelefono:
-                            print("\nEste número de celular es inválido\n")
+                            print("\nEste número de teléfono es inválido\n")
                         except ExceptionClienteYaExiste:
                             print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
                         except ExceptionTipoDeDato:
@@ -208,6 +208,8 @@ while Encendido == True:
 
                         except ExceptionClienteYaExiste:
                             print("\nEsta empresa ya existe, ingrese los datos nuevamente\n")
+                        except ExceptionTelefono:
+                            print("\nEste número de teléfono es inválido\n")
                         except ExceptionTipoDeDato:
                             print("\nEl rut ingresado es inválido\n")
                         except ValueError:
@@ -313,9 +315,14 @@ while Encendido == True:
             elif B == 5:
                 while True:
                     try:
-                        print("Lista de piezas (código/descripcion/lote):")
-                        for p in sistema.lista_pieza:
-                            print(p.codigo,".", p.descripcion, ", el tamaño del lote es: ", p.lote)
+                        if sistema.lista_pieza == []:
+                            print("\nNo hay piezas registradas")
+                            Registrar = False
+                            break
+                        else:
+                            print("Lista de piezas (código/descripcion/lote):")
+                            for p in sistema.lista_pieza:
+                                print(p.codigo,".", p.descripcion, ", el tamaño del lote es: ", p.lote)
 
                         while True:
                             elijo_reposicion = int(input("\nElija una pieza para reponer (ingrese el código): "))
@@ -409,8 +416,8 @@ while Encendido == True:
                 bucle = True
                 while bucle == True:
                     try:
-                        if sistema.__lista_pedido == []:
-                            print("No de han realizado pedidos")
+                        if sistema.lista_pedido == []:
+                            print("\nNo se han realizado pedidos")
                             bucle = False
                             break
 
@@ -425,8 +432,12 @@ while Encendido == True:
                             if estado == 1:
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Pendiente":
-                                        print("\n LISTA DE PEDIDOS PENDIENTES:")
-                                        print(a.cliente, a.maquina, a.fecha_realizado, a.precio_pedido)
+                                        if isinstance (a, ClienteParticular):
+                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                            print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                        if isinstance (a, Empresa):
+                                            print("\n LISTA DE PEDIDOS PENDIENTES:")
+                                            print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
                                         
                             else:
                                 for a in sistema.lista_pedido:
@@ -463,10 +474,11 @@ while Encendido == True:
                     print("No hay maquinas registradas")
                 else:
                     print("\nLISTA MÁQUINAS")
-                    print("CÓDIGO -", "DESCRIPCIÓN -", "REQUERIMIENTOS -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
+                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
 
                     for a in sistema.lista_maquina:
-                        print(a.codigo, a.descripcion, a.requerimientos, a.costo_produccion, a.disponibilidad)
+                        if
+                        print(a.codigo, a.descripcion, a.costo_produccion, a.disponibilidad)
                 
                 Listar = False
 
