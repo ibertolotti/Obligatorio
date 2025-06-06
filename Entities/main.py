@@ -238,11 +238,13 @@ while Encendido == True:
                                 except ExceptionTelefono:
                                     print("\nEste número de teléfono es inválido")
                                 except ValueError:
-                                    print("\nInformación inválida, revise los datos ingresados\n")
+                                    print("\nInformación inválida, revise los datos ingresados")
 
                             while True:
                                 try:  
                                     correo = input("Ingrese su correo electrónico: ")
+                                    if "@" not in correo:
+                                        raise ExceptionCorreoArroba()
                                     break
                                 
                                 except ExceptionCorreoArroba:
@@ -251,8 +253,20 @@ while Encendido == True:
                             while True:
                                 try:
                                     cedula = input("Ingrese su cédula (sin guión): ")
+                                    for c in sistema.lista_clientes:
+                                        if isinstance (c, ClienteParticular):
+                                            if c.cedula==cedula:
+                                                raise ExceptionClienteYaExiste()
+                                                                
+                                    if len(cedula)!= 8:
+                                        raise ExceptionTipoDeDato()
+                                    
+                                    if not str(cedula).isdigit():
+                                        raise ValueError()
                                     break
                                 
+                                except ExceptionClienteYaExiste:
+                                    print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
                                 except ExceptionTipoDeDato:
                                     print("\nLa cédula ingresada es inválida\n")
                                 except ValueError:
@@ -268,16 +282,9 @@ while Encendido == True:
 
                             sistema.registrar_cliente_particular(telefono, correo, cedula, nombre_completo)
                             break
-                        # except ExceptionTelefono:
-                        #     print("\nEste número de teléfono es inválido\n")
-                        except ExceptionClienteYaExiste:
-                            print("\nEste cliente ya existe, ingrese los datos nuevamente\n")
-                        # except ExceptionTipoDeDato:
-                        #     print("\nLa cédula ingresada es inválida\n")
+
                         except ValueError:
                             print("\nInformación inválida, revise los datos ingresados\n")
-                        # except ExceptionCorreoArroba:
-                        #     print("\nEl correo ingresado es inválido\n")
 
                 elif opcion == 2:
                     while True:
