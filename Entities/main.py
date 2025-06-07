@@ -303,20 +303,20 @@ while Encendido == True:
 
                     while True:   
                         try:
-                            correo = input("\nIngrese su correo electrónico: ")
+                            correo = input("Ingrese su correo electrónico: ")
                             if "@" not in correo:
                                 raise ExceptionCorreoArroba
                             break
                         
                         except ExceptionCorreoArroba:
-                            print("\nEl correo ingresado es inválido")
+                            print("\nEl correo ingresado es inválido\n")
 
                     while True:
                         try:
-                            rut = input("\nIngrese su número de rut: ")
+                            rut = input("Ingrese su número de rut: ")
                             for e in sistema.lista_clientes:
                                 if isinstance(e, Empresa):
-                                    if e.rut==rut:
+                                    if e.rut == rut:
                                         raise ExceptionClienteYaExiste
                                                         
                             if len(rut) != 12:
@@ -329,25 +329,25 @@ while Encendido == True:
                         except ExceptionClienteYaExiste:
                             print("\nEsta empresa ya existe, ingrese los datos nuevamente")
                         except ExceptionTipoDeDato:
-                            print("\nEl rut ingresado es inválido")
+                            print("\nEl rut ingresado es inválido\n")
                         except ValueError:
                             print("\nInformación inválida, revise los datos ingresados")
 
                     while True:
-                            nombre = input("\nIngrese el nombre de su empresa: ")
+                            nombre = input("Ingrese el nombre de su empresa: ")
 
                             if nombre != "":
                                 break
                             else:
-                                print("\nNombre inválido")
+                                print("\nNombre inválido\n")
 
                     while True:
-                            web = input("\nIngrese su sitio web: ")
+                            web = input("Ingrese su sitio web: ")
 
                             if web != "":
                                 break
                             else:
-                                print("\nSitio Web inválido")
+                                print("\nSitio web inválido\n")
                 
                 sistema.registrar_empresa(telefono, correo, rut, nombre, web)
                 print("\nSe ha registrado el cliente con éxito")
@@ -457,7 +457,7 @@ while Encendido == True:
 
                         while True:
                             try:
-                                elijo_reposicion = int(input("\nElija una pieza para reponer (ingrese el código): "))
+                                elijo_reposicion = int(input("Elija una pieza para reponer (ingrese el código): "))
 
                                 existencia = False
                                 for a in sistema.lista_pieza:
@@ -507,7 +507,7 @@ while Encendido == True:
                             m.cambiar_disponibilidad()
 
                         print("\nSe ha registrado la reposición con éxito")
-                        print("El costo en dolares de la reposicion es de (USD): ", nueva_reposicion.costo_USD)
+                        print("El costo en dólares de la reposicion es de (USD): ", nueva_reposicion.costo_USD)
                         print("La cantidad actualizada de stock de", nueva_reposicion.pieza.descripcion, "es: ", nueva_reposicion.pieza.cantidad_stock)
                         Registrar = False
                         break
@@ -548,20 +548,23 @@ while Encendido == True:
                     print("No hay clientes registrados")
 
                 else:
-                    print("\nLISTA CLIENTES: ")
-                    print("TIPO -", "TELEFONO -", "CORREO -", "CEDULA/RUT -", "NOMBRE -", "WEB")
+                    print("\nLISTA CLIENTES\n")
+                    print(f"{'TIPO':<20} {'TELÉFONO':<11} {'CORREO':<25} {'CÉDULA/RUT':<15} {'NOMBRE':<25} {'WEB':<25}")
+                    print("-" * 120)
+
                     for a in sistema.lista_clientes:
                         if isinstance(a, ClienteParticular):
                             tipo = "Cliente Particular"
-                            print(tipo, a.telefono, a.correo, a.cedula, a.nombre_completo)
+                            print(f"{tipo:<20} {a.telefono:<11} {a.correo:<25} {a.cedula:<15} {a.nombre_completo:<25} {'-':<25}")
                         elif isinstance(a, Empresa):
                             tipo = "Empresa"
-                            print(tipo, a.telefono, a.correo, a.rut, a.nombre, a.web)
+                            print(f"{tipo:<20} {a.telefono:<11} {a.correo:<25} {a.rut:<15} {a.nombre:<25} {a.web:<25}")
 
                 Listar = False
 
             elif C == 2:
                 bucle = True
+
                 while bucle == True:
                     try:
                         if sistema.lista_pedido == []:
@@ -582,12 +585,13 @@ while Encendido == True:
                                     print("\nDato invalido, ingrese si/no")
                                     
                                     
-                        if filtrar == "si" or filtrar=="sí":
+                        if filtrar == "si" or filtrar == "sí":
                             print("1.Pendientes")
                             print("2.Entregados")
+
                             while True:
                                 try:
-                                    estado = int(input("\nSeleccione una opcion: "))
+                                    estado = int(input("\nSeleccione una opción: "))
                                     bucle = False
 
                                     if estado != 1 and estado != 2:
@@ -601,41 +605,51 @@ while Encendido == True:
                                     print("\nElija el estado del pedido (1 o 2)")
 
                             if estado == 1:
-                                print("\n LISTA DE PEDIDOS PENDIENTES:")
-                                print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "PRECIO PEDIDO")
+                                print("\nLISTA DE PEDIDOS PENDIENTES\n")
+                                print(f"{'CLIENTE':<20} {'MÁQUINA':<20} {'FECHA REALIZADO':<30} {'PRECIO PEDIDO':<20}")
+                                print("-" * 90)
+
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Pendiente":
                                         if isinstance (a, ClienteParticular):
-                                            print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizadp:<30} {a.precio.pedido:<20}")
                                         elif isinstance (a, Empresa):
-                                            print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.precio_pedido)
+                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizadp:<30} {a.precio.pedido:<20}")
+                
                                 bucle = False
 
                             elif estado == 2:
-                                print("\nLISTA DE PEDIDOS ENTREGADOS:")
-                                print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "FECHA ENTREGADO -", "PRECIO PEDIDO")
+                                print("\nLISTA DE PEDIDOS ENTREGADOS\n")
+                                print(f"{'CLIENTE':<20} {'MÁQUINA':<20} {'FECHA REALIZADO':<30} {'FECHA ENTREGADO':<30} {'PRECIO PEDIDO':<20}")
+                                print("-" * 120)
+
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Entregado":
                                         if isinstance (a, ClienteParticular):
-                                            print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
                                         elif isinstance (a, Empresa):
-                                            print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado,a.precio_pedido)
+                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
                                 bucle = False
 
                         elif filtrar == "no":
-                            print("\nLISTA DE PEDIDOS:")
-                            print("CLIENTE -", "MAQUINA -", "FECHA REALIZADO -", "FECHA ENTREGADO -", "PRECIO PEDIDO")
+                            print("\nLISTA DE PEDIDOS\n")
+                            print(f"{'CLIENTE':<20} {'MÁQUINA':<20} {'FECHA REALIZADO':<30} {'FECHA ENTREGADO':<30} {'PRECIO PEDIDO':<20}")
+                            print("-" * 120)
+
                             for a in sistema.lista_pedido:
+
                                 if a.estado == "Pendiente":
                                     if isinstance(a.cliente, ClienteParticular):
-                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, "-",a.precio_pedido)
+                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {'- ':<29} {a.precio_pedido:<20}")
                                     elif isinstance(a.cliente, Empresa):
-                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, "-",a.precio_pedido)
+                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {'- ':<29} {a.precio_pedido:<20}")
+
                                 elif a.estado == "Entregado":
                                     if isinstance(a.cliente, ClienteParticular):
-                                        print(a.cliente.nombre_completo, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
                                     elif isinstance(a.cliente, Empresa):
-                                        print(a.cliente.nombre, a.maquina.descripcion, a.fecha_realizado, a.fecha_entregado, a.precio_pedido)
+                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
+
                             bucle = False
 
                     except ValueError:
@@ -647,14 +661,15 @@ while Encendido == True:
                 if sistema.lista_maquina == []:
                     print("No hay maquinas registradas")
                 else:
-                    print("\nLISTA MÁQUINAS")
-                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO PRODUCCIÓN -", "DISPONIBILIDAD")
+                    print("\nLISTA MÁQUINAS\n")
+                    print(f"{'CÓDIGO':<7} {'DESCRIPCIÓN':<20} {'COSTO PRODUCCIÓN':<18} {'DISPONIBILIDAD':<14}")
+                    print("-" * 64)
 
                     for a in sistema.lista_maquina:
                         if a.disponibilidad == True:
-                            print(a.codigo, a.descripcion, a.costo_produccion, "Disponible")
+                            print(f"{a.codigo:<7} {a.descripcion:<20} {a.costo_produccion:<18} {'Disponible':<14}")
                         elif a.disponibilidad == False:
-                            print(a.codigo, a.descripcion, a.costo_produccion, "No disponible")
+                            print(f"{a.codigo:<7} {a.descripcion:<20} {a.costo_produccion:<18} {'No Disponible':<14}")
                 
                 Listar = False
 
@@ -662,34 +677,37 @@ while Encendido == True:
                 if sistema.lista_pieza == []:
                     print("No se ha registrado ninguna pieza")
                 else:
-                    print("\nLISTA PIEZAS")
-                    print("CÓDIGO -", "DESCRIPCIÓN -", "COSTO(USD) -", "TAMAÑO DEL LOTE -", "CANTIDAD DE STOCK DISPONIBLE -", "CANTIDAD DE STOCK FALTANTE -", "LOTES FALTANTES")
+                    print("\nLISTA PIEZAS\n")
+                    print(f"{'CÓDIGO':<7} {'DESCRIPCIÓN':<20} {'COSTO (USD)':<15} {'TAMAÑO DE LOTE':<15} {'CANTIDAD DE STOCK DISPONIBLE':<30} {'CANTIDAD DE STOCK FALTANTE':<30} {'LOTES FALTANTES':<15}")
+                    print("-" * 142)
 
                     for a in sistema.lista_pieza:
                         stock_faltante = 0
                         lotes_faltantes = 0
+
                         for p in sistema.lista_pedido:
                             for r in p.maquina.requerimientos:
                                 if a.codigo == r.pieza.codigo:
                                     if p.estado == "Pendiente":
                                         stock_faltante += r.cantidad_requerida
+
                         if stock_faltante != 0:
                             stock_faltante -= a.cantidad_stock
                             lotes_faltantes = math.ceil(stock_faltante/a.lote)
-                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                            print(f"{a.codigo:<7} {a.descripcion:<20} {a.costo_USD:<15} {a.lote:<15} {a.cantidad_stock:<30} {stock_faltante:<30} {lotes_faltantes:<15}")
                         else:
-                            print(a.codigo, a.descripcion, a.costo_USD, a.lote, a.cantidad_stock, stock_faltante, lotes_faltantes)
+                            print(f"{a.codigo:<7} {a.descripcion:<20} {a.costo_USD:<15} {a.lote:<15} {a.cantidad_stock:<30} {stock_faltante:<30} {lotes_faltantes:<15}")
 
                 Listar = False
 
             elif C == 5:
-                print("\nCONTABILIDAD")
+                print("\nCONTABILIDAD\n")
 
-                costo_total_produccion=0
+                costo_total_produccion = 0
                 for c in sistema.lista_pedido:
                     if c.estado == "Entregado":
-                        costo_total_produccion+=c.maquina.costo_produccion
-                print("El costo total de produccion es: ", costo_total_produccion)
+                        costo_total_produccion += c.maquina.costo_produccion
+                print("El costo total de producción es: ", costo_total_produccion)
 
                 ingreso_total = 0
                 for c in sistema.lista_pedido:
