@@ -253,7 +253,7 @@ while Encendido == True:
                             cedula = input("Ingrese su cédula (sin guión): ")
                             for c in sistema.lista_clientes:
                                 if isinstance (c, ClienteParticular):
-                                    if c.cedula==cedula:
+                                    if c.cedula == cedula:
                                         raise ExceptionClienteYaExiste()
                                                         
                             if len(cedula)!= 8:
@@ -357,7 +357,7 @@ while Encendido == True:
             elif B == 4:
                 if sistema.lista_clientes == [] or sistema.lista_maquina ==[]:
                     print("ERROR: no se pudo registrar el pedido")
-                    print("Debe registrar un cliente y/o una máquina antes de registrar un pedido ")
+                    print("Debe registrar un cliente y/o una máquina antes de registrar un pedido")
                     Registrar = False 
                     break
 
@@ -370,7 +370,7 @@ while Encendido == True:
                     elif isinstance(c, Empresa):
                         lista_id.append((c.id, c.nombre))
                 
-                print("\nLista de Clientes: ")
+                print("\nLista de Clientes:")
                 for a in lista_id:
                     print (a)
 
@@ -389,7 +389,7 @@ while Encendido == True:
                     except ExceptionClienteNoExiste:
                         print("\nEl cliente seleccionado no existe, intente nuevamente")
                     except ValueError:
-                        print("\nInformacion invalida, revise los datos ingresados")
+                        print("\nInformación inválida, revise los datos ingresados")
 
                 lista_codigo_maquina = []
                 for d in sistema.lista_maquina:
@@ -414,7 +414,7 @@ while Encendido == True:
                     except ExceptionMaquinaNoExiste:
                         print("\nLa máquina seleccionada no existe, intente nuevamente\n")
                     except ValueError:
-                        print("\nInformacion invalida, revise los datos ingresados")   
+                        print("\nInformación inválida, revise los datos ingresados")   
                 
                 pedido_realizado = sistema.registrar_pedido(elijo_cliente, elijo_maquina)
 
@@ -447,11 +447,11 @@ while Encendido == True:
                     try:
                         if sistema.lista_pieza == []:
                             print("\nNo hay piezas registradas")
-                            print("\nDebe registrar piezas antes de realizar una reposision")
+                            print("\nDebe registrar piezas antes de realizar una reposición")
                             Registrar = False
                             break
                         else:
-                            print("Lista de piezas (código/descripcion/lote):")
+                            print("Lista de piezas (código/descripción/lote):")
                             for p in sistema.lista_pieza:
                                 print(p.codigo,".", p.descripcion, ", el tamaño del lote es: ", p.lote)
 
@@ -499,7 +499,7 @@ while Encendido == True:
                                         break
 
                                 if puede_entregarse == True:       
-                                    p.estado="Entregado"
+                                    p.estado = "Entregado"
                                     for r in p.maquina.requerimientos:
                                         r.pieza.cantidad_stock -= r.cantidad_requerida     
                         
@@ -540,7 +540,7 @@ while Encendido == True:
                     break
 
                 except ValueError:
-                    print("ERROR: ingrese una de las opciones del menu")
+                    print("ERROR: ingrese una de las opciones del menú")
 
             if C == 1:
 
@@ -611,10 +611,11 @@ while Encendido == True:
 
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Pendiente":
+                                        imprimir_fecha_realizado = str(a.fecha_realizado)
                                         if isinstance (a, ClienteParticular):
-                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizadp:<30} {a.precio.pedido:<20}")
+                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {a.precio.pedido:<20}")
                                         elif isinstance (a, Empresa):
-                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizadp:<30} {a.precio.pedido:<20}")
+                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {a.precio.pedido:<20}")
                 
                                 bucle = False
 
@@ -625,10 +626,12 @@ while Encendido == True:
 
                                 for a in sistema.lista_pedido:
                                     if a.estado == "Entregado":
+                                        imprimir_fecha_realizado = str(a.fecha_realizado)
+                                        imprimir_fecha_entrgado = str(a.fecha_entregado)
                                         if isinstance (a, ClienteParticular):
-                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
+                                            print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {imprimir_fecha_entrgado:<30} {a.precio_pedido:<20}")
                                         elif isinstance (a, Empresa):
-                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
+                                            print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {imprimir_fecha_entrgado:<30} {a.precio_pedido:<20}")
                                 bucle = False
 
                         elif filtrar == "no":
@@ -639,16 +642,19 @@ while Encendido == True:
                             for a in sistema.lista_pedido:
 
                                 if a.estado == "Pendiente":
+                                    imprimir_fecha_realizado = str(a.fecha_realizado)
                                     if isinstance(a.cliente, ClienteParticular):
-                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {'- ':<29} {a.precio_pedido:<20}")
+                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {' ':<30} {a.precio_pedido:<20}")
                                     elif isinstance(a.cliente, Empresa):
-                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {'- ':<29} {a.precio_pedido:<20}")
+                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {' ':<30} {a.precio_pedido:<20}")
 
                                 elif a.estado == "Entregado":
+                                    imprimir_fecha_realizado = str(a.fecha_realizado)
+                                    imprimir_fecha_entrgado = str(a.fecha_entregado)
                                     if isinstance(a.cliente, ClienteParticular):
-                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
+                                        print(f"{a.cliente.nombre_completo:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {imprimir_fecha_entrgado:<30} {a.precio_pedido:<20}")
                                     elif isinstance(a.cliente, Empresa):
-                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {a.fecha_realizado:<30} {a.fecha_entregado:<30} {a.precio_pedido:<20}")
+                                        print(f"{a.cliente.nombre:<20} {a.maquina.descripcion:<20} {imprimir_fecha_realizado:<30} {imprimir_fecha_entrgado:<30} {a.precio_pedido:<20}")
 
                             bucle = False
 
