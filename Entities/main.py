@@ -634,7 +634,7 @@ while Encendido == True:
                                 
                                 auxiliar = []
                                 for a in sistema.lista_pedido:
-                                    if a.estado == "Pendiente":
+                                    if a.estado == "Entregado":
                                         auxiliar.append(a)
                                 
                                 if auxiliar == []:
