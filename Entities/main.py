@@ -412,7 +412,7 @@ while Encendido == True:
                         break
                     
                     except ExceptionMaquinaNoExiste:
-                        print("\nLa máquina seleccionada no existe, intente nuevamente\n")
+                        print("\nLa máquina seleccionada no existe, intente nuevamente")
                     except ValueError:
                         print("\nInformación inválida, revise los datos ingresados")   
                 
@@ -538,7 +538,7 @@ while Encendido == True:
                     print ("    6. Salir")
                     print ("          ")
 
-                    C = int(input("\nSeleccione una opción: "))
+                    C = int(input("Seleccione una opción: "))
                     break
 
                 except ValueError:
@@ -570,7 +570,7 @@ while Encendido == True:
                 while bucle == True:
                     try:
                         if sistema.lista_pedido == []:
-                            print("\nNo se han realizado pedidos")
+                            print("No se han realizado pedidos")
                             bucle = False
                             break
                         
